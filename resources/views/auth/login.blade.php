@@ -6,8 +6,11 @@
                <div class="card p-5">
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="col-end-6">
+                    <div class="col-6">
                         <img src="{{ asset('assets/img/img-login.jpg') }}" alt="image login" width="600px">
+                        <div class="card mx-lg-5">
+                            <h2>Entre contatos com suporte</h2>
+                        </div>
                     </div>
 
                     <div class="col-5">
@@ -30,7 +33,10 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <button class="btn btn-primary mt-4">Entrar</button>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <button class="btn btn-primary mt-4">Entrar</button>
+                                <a class="mt-4" href="{{ route('password.request') }}">Esquicir da senha!</a>
+                            </div>
                         </form>
                     </div>
                 </div>
