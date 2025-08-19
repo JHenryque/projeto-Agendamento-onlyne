@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="col-5">
-                        <h2 class="mb-5">Login</h2>
+                        <h2 class="mb-5 text-primary">LOGIN</h2>
                         <form action="{{ route('login')  }}" method="post">
                             @csrf
 
