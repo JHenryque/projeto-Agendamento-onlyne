@@ -16,12 +16,17 @@ body {
     justify-content: center;
 }
 
-.side_bar {
-    height: 100dvh;
+.container_main {
+    width: 100%;
     display: flex;
-    align-content: center;
-    justify-content: center;
 }
+
+/*.side_bar {*/
+/*    height: 100dvh;*/
+/*    display: flex;*/
+/*    align-content: center;*/
+/*    justify-content: center;*/
+/*}*/
 
 /*.marg-center {*/
 /*    display: flex;*/

@@ -31,7 +31,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('user_address', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('user_id');
             $table->string('address');
@@ -50,6 +50,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('user_address');
+        Schema::dropIfExists('addresses');
     }
 };

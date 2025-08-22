@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function adresses() {
+        return $this->hasOne(UserAdress::class, 'user_id', 'id');
+    }
+
+    public function department() {
+        return $this->belongsTo(Departments::class);
+    }
 }

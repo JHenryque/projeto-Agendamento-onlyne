@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg text-bg-primary">
+<nav class="navbar navbar-expand-lg text-bg-primary pe-4 ps-4">
         <div class="container-fluid ">
             <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
             <div class="d-flex justify-items-end align-items-center" id="navbarSupportedContent">
@@ -8,7 +8,7 @@
                             {{ auth()->user()->name }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.profile') }}">Editar perfil</a></li>
                             <li><a class="dropdown-item" href="#">Alterar senha</a></li>
                         </ul>
                     </li>

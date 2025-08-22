@@ -17,11 +17,14 @@
 
 <body>
 
-    <x-user-bar />
-    <div class="d-flex min-vh-100">
-        <x-side-bar />
-        {{ $slot }}
-    </div>
+
+        <x-user-bar />
+        <div class="d-flex gap-3" style="min-height: 860px;">
+            <x-side-bar />
+            <div class="w-100 mt-3 justify-content-center">
+                {{ $slot }}
+            </div>
+        </div>
 
 
 <!-- resources -->
