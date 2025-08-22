@@ -12,15 +12,16 @@
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
     <!-- custom -->
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/stylles.css') }}">
 </head>
 
 <body>
 
-<div class="d-flex pt-2 ">
-
-    {{ $slot }}
-</div>
+    <x-user-bar />
+    <div class="d-flex min-vh-100">
+        <x-side-bar />
+        {{ $slot }}
+    </div>
 
 
 <!-- resources -->

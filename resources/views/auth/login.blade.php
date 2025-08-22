@@ -3,17 +3,17 @@
 
        <div class="row align-items-center vertical-Y">
 
-               <div class="card p-5">
+               <div class="card p-4 d-flex flex-wrap ">
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="col-6">
-                        <img src="{{ asset('assets/img/img-login.jpg') }}" alt="image login" width="600px">
+                <div class="d-flex flex-wrap-reverse justify-content-between align-items-center">
+                    <div class="col-md-6">
+                        <img src="{{ asset('assets/img/img-login.jpg') }}" alt="image login" width="100%">
                         <div class="card mx-lg-5">
                             <h2>Entre contatos com suporte</h2>
                         </div>
                     </div>
 
-                    <div class="col-5">
+                    <div class="col-md-5">
                         <h2 class="mb-5 text-primary">LOGIN</h2>
                         <form action="{{ route('login')  }}" method="post">
                             @csrf
@@ -33,10 +33,15 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="d-flex align-items-center justify-content-between">
+
+                            <div class="d-flex flex-wrap align-items-center justify-content-between">
                                 <button class="btn btn-primary mt-4">Entrar</button>
-                                <a class="mt-4" href="{{ route('password.request') }}">Esquicir da senha!</a>
+                                <div class="d-flex flex-wrap  align-items-center justify-content-between col-6">
+                                    <a class="mt-4" href="{{ route('register') }}">Criar Contar!</a>
+                                    <a class="mt-4" href="{{ route('password.request') }}">Esquicir da senha!</a>
+                                </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
