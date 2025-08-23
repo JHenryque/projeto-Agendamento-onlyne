@@ -31,16 +31,18 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('user_addresses', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->foreignId('user_id');
-            $table->string('address');
-            $table->string('number');
-            $table->string('bairro' );
+            $table->foreignId('user_id')->index();
+            $table->string('phone', 12)->nullable();
+            $table->string('address', 200)->nullable();
+            $table->string('number',)->nullable();
+            $table->string('bairro', 100)->nullable();
             $table->string('cidade', 45);
             $table->string('cep', 9);
             $table->timestamps();
         });
+
     }
 
     /**
@@ -50,6 +52,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('user_addresses');
     }
 };

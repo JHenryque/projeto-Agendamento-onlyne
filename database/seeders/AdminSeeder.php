@@ -18,8 +18,6 @@ class AdminSeeder extends Seeder
             'name' => 'Henrique',
             'email' => 'josehenriquedevops@gmail.com',
             'email_verified_at' => now(),
-            'phone' => '87998106866',
-            'cpf' => bcrypt('23345678945'),
             'password' => bcrypt('Aa123456'),
             'role' => 'admin',
             'permissions' => '["admin"]',
@@ -29,8 +27,9 @@ class AdminSeeder extends Seeder
 
         // --------- area endereço admin
 
-        DB::table('user_address')->insert([
+        DB::table('user_addresses')->insert([
             'user_id' => 1,
+            'phone'=> '123456789',
             'address' => 'Rua do Administrador',
             'number' => "133",
             'bairro' => 'Cohab 2',
@@ -49,19 +48,13 @@ class AdminSeeder extends Seeder
         ]);
 
         DB::table('departments')->insert([
-            'name' => 'assistente',
+            'name' => 'colaborador',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         DB::table('departments')->insert([
-            'name' => 'vendedor',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        DB::table('departments')->insert([
-            'name' => 'cliente',
+            'name' => 'empreendedor',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
