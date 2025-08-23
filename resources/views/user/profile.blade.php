@@ -26,7 +26,7 @@
 
                     <x-formulario-input/>
 
-                    <button class="btn btn-outline-primary mt-3 col-md-10">Alterar perfil</button>
+                    <button type="submit" class="btn btn-outline-primary mt-3 col-md-10">Alterar perfil</button>
                 </form>
 
             </div>

@@ -15,7 +15,7 @@
     </div>
 
     <div class="form-floating mb-3 col-md-4">
-        <input type="text" name="telefone" class="form-control @error('telefone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->adresses->phone }}" aria-describedby="validationInput">
+        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->adresses->phone }}" aria-describedby="validationInput">
         <label for="floatingInput">Telefone: </label>
         <div id="validationInput" class="form-text">
             @error('telefone')

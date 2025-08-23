@@ -16,5 +16,7 @@ Route::middleware('auth')->group(function () {
 
     // perfil do usuario
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
-    Route::post('/profile/edit', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
+    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
+    Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
+    Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
 });

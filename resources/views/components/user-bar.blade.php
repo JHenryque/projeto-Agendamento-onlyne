@@ -20,7 +20,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('user.profile') }}">Editar perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Alterar senha</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.profile.password') }}">Alterar senha</a></li>
                         </ul>
                     </li>
                 </ul>
