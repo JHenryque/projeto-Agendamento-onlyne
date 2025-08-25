@@ -2,11 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Headers;
 use Illuminate\Queue\SerializesModels;
 
 class ConfirmAccountEmail extends Mailable
@@ -16,10 +18,9 @@ class ConfirmAccountEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public string $url;
-    public function __construct(string $url)
+    public function __construct(protected User $user)
     {
-        $this->url = $url;
+        //
     }
 
     /**
@@ -40,6 +41,10 @@ class ConfirmAccountEmail extends Mailable
     {
         return new Content(
             view: 'mail.confirm-account-email',
+            with: [
+                'userId' => $this->user->id,
+                'userEmail' => $this->user->email,
+            ],
         );
     }
 
@@ -52,4 +57,18 @@ class ConfirmAccountEmail extends Mailable
     {
         return [];
     }
+
+    /**
+     * Get the message headers.
+     */
+//    public function headers(): Headers
+//    {
+//        return new Headers(
+//            messageId: 'custom-message-id@example.com',
+//            references: ['http://at_online.test/profile/password-update'],
+//            text: [
+//                'X-Custom-Header' => 'Custom Value',
+//            ],
+//        );
+//    }
 }

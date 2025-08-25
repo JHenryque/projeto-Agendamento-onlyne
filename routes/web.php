@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('guest')->group(function () {
-
+    Route::get('confirm-account/{id)', [ConfirmAccountController::class, 'confirmAccount'])->name('confirm-account');
 });
 
 Route::middleware('auth')->group(function () {

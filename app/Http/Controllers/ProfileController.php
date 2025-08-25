@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -49,19 +48,10 @@ class ProfileController extends Controller
     public function updatePassword(Request $request) {
         $request->validate(['email' => 'required|email|unique:users,email,'. Auth::user()->id]);
 
-        //dd($request->all());
+        $user = User::findOrFail($request->id);
 
-        // criar um token para altera a senha
-        $token = Str::random(50);
+        Mail::to($request->user()->email)->send(new ConfirmAccountEmail($user));
 
-        $user = new User();
-
-        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL))
-        {
-            return with('error', 'Nao exister email no nosso banco de dados, verifique se e igual e tente novamente');
-        }
-        $user->confirmation_token = $token;
-
-        Mail::to($user->email)->send(new ConfirmAccountEmail(route('confirm_account', $token)));
+        return redirect()->route('user.altera-password')->with('success', 'Dados atualizados com sucesso! :)');
     }
 }
