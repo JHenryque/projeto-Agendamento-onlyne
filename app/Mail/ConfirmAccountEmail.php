@@ -18,9 +18,11 @@ class ConfirmAccountEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(protected User $user)
+
+    public string $url;
+    public function __construct(string $url)
     {
-        //
+        $this->url = $url;
     }
 
     /**
@@ -40,11 +42,7 @@ class ConfirmAccountEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.confirm-account-email',
-            with: [
-                'userId' => $this->user->id,
-                'userEmail' => $this->user->email,
-            ],
+            view: 'mail.confirm-account-password',
         );
     }
 

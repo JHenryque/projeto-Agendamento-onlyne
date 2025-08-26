@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Mail\ConfirmAccountEmail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -46,12 +50,16 @@ class ProfileController extends Controller
     }
 
     public function updatePassword(Request $request) {
-        $request->validate(['email' => 'required|email|unique:users,email,'. Auth::user()->id]);
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
 
-        $user = User::findOrFail($request->id);
+        $user = User::first('id');
 
-        Mail::to($request->user()->email)->send(new ConfirmAccountEmail($user));
 
-        return redirect()->route('user.altera-password')->with('success', 'Dados atualizados com sucesso! :)');
+        Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $user)));
+
+        return redirect()->back();
     }
+
 }

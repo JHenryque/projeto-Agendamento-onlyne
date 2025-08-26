@@ -11,7 +11,7 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Agendamento-Onlyne</a>
             <div class="d-flex justify-items-end align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">

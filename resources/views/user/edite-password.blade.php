@@ -22,13 +22,10 @@
                             </div>
                         </form>
                     @else
-                        <div class="alert alert-success text-center" role="alert">
-                            Enviado com Sucesso!
-                        </div>
                         <div class="text-center mb-5">
                             <p>Se está registrado nesta plataforma, irá receber um email com um link para recupera a senha</p>
                             <p class="mb-5">Por favor verifique a sua caixa de correio</p>
-                            <a href="{{ route('login') }} " class="btn btn-primary">Voltar ao login</a>
+                            <a href="{{ route('home') }} " class="btn btn-primary">home</a>
                         </div>
                     @endif
                 </div>

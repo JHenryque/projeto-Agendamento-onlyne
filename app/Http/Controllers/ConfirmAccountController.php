@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ConfirmAccountController extends Controller
 {
@@ -16,5 +17,16 @@ class ConfirmAccountController extends Controller
         }
 
         return view('auth.confirm-account', compact('user'));
+    }
+
+    public function alteraPassword($id) {
+
+        $id = User::where('id', $id)->first();
+
+        if (!$id) {
+            abort(404, 'Invalid confirmation token');
+        }
+
+        return view('user.altera-password' , compact('id'));
     }
 }

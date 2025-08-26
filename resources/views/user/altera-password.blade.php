@@ -1,10 +1,8 @@
-<div>
-    <div class="container-fluid text-xl-center">
-        <div class="row">
-           ID: {{ $userId }}
-        </div>
-        <div class="col-md-4">
-            ID: {{ $userEmail }}
+<x-layout-guest title="Digite a senha">
+
+    <div class="container-fluid d-flex justify-content-center mt-4">
+        <div class="card col-md-7">
+            Alterar senha
         </div>
     </div>
-</div>
+</x-layout-guest>
