@@ -23,5 +23,5 @@ Route::middleware('auth')->group(function () {
 
     // alterar senha
     Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
-    Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alterarPasswordUpdate'])->name('altera.password.update');
+    Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alteraPasswordUpdate'])->name('altera.password.update');
 });

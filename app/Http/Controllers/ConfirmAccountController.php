@@ -36,6 +36,11 @@ class ConfirmAccountController extends Controller
             'token' => 'required|string|size:60',
             'password' => 'required|min:8|confirmed|max:20|regex:/^(?=.*[a-z])(?=.*\d).+$/',
             'password_confirmation' => 'required',
+        ],[
+            'password.confirmed' => 'A confirmação do campo de senha não corresponde.',
+            'password.regex' => 'O formato do campo de senha é inválido',
+            'password.min' => 'A senha deve ter pelo menos :min caracteres.',
+            'password.max' => 'A senha deve ter pelo menos :max caracteres.',
         ]);
     }
 }
