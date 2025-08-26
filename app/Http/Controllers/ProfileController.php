@@ -50,16 +50,31 @@ class ProfileController extends Controller
     }
 
     public function updatePassword(Request $request) {
+
         $request->validate([
             'email' => 'required|email|exists:users,email',
+        ],[
+            'email.exists' => 'O e-mail selecionado é inválido.',
         ]);
 
-        $user = User::first('id');
+        //$user = User::first('id');
+
+        $token = Str::random(60);
 
 
-        Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $user)));
+        $user = User::findOrFail($request->user()->id);
+        $user->remember_token = $token;
+        $user->save();
 
-        return redirect()->back();
+        if($user)
+        {
+            redirect()->route('user.profile.password')->with('success', 'verifique o seu email');
+
+            Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $token)));
+        }
+
+
+        return redirect()->route('user.profile.password');
     }
 
 }

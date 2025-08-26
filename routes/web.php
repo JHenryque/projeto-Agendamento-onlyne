@@ -21,5 +21,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
     Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
 
-    Route::get('/profile/altera-password/{id}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
+    Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
 });

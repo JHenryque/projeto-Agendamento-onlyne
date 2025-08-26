@@ -19,14 +19,14 @@ class ConfirmAccountController extends Controller
         return view('auth.confirm-account', compact('user'));
     }
 
-    public function alteraPassword($id) {
+    public function alteraPassword($token) {
 
-        $id = User::where('id', $id)->first();
+        $user = User::where('remember_token', $token)->first();
 
-        if (!$id) {
+        if (!$user) {
             abort(404, 'Invalid confirmation token');
         }
 
-        return view('user.altera-password' , compact('id'));
+        return view('user.altera-password' , compact('user'));
     }
 }
