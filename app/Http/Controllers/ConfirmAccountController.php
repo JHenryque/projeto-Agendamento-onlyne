@@ -29,4 +29,13 @@ class ConfirmAccountController extends Controller
 
         return view('user.altera-password' , compact('user'));
     }
+
+    public function alteraPasswordUpdate(Request $request) {
+        // form validation
+        $request->validate([
+            'token' => 'required|string|size:60',
+            'password' => 'required|min:8|confirmed|max:20|regex:/^(?=.*[a-z])(?=.*\d).+$/',
+            'password_confirmation' => 'required',
+        ]);
+    }
 }
