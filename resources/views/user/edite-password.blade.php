@@ -4,7 +4,6 @@
             <div class="card p-4">
 
                 <div class="row align-content-center justify-items-center">
-
                         <p>Para Alterar a sua senha, irá receber um email com um link para Alteração da senha.</p>
                         <form action="{{ route('user.profile.password.update') }}" method="post">
                             @csrf

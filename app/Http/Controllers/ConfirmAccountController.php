@@ -42,5 +42,13 @@ class ConfirmAccountController extends Controller
             'password.min' => 'A senha deve ter pelo menos :min caracteres.',
             'password.max' => 'A senha deve ter pelo menos :max caracteres.',
         ]);
+
+
+        $user = User::where('remember_token', $request->token)->first();
+        $user->password = bcrypt($request->password);
+        $user->remember_token = null;
+        $user->save();
+
+        return redirect()->route('home')->with('success', 'Senha alterada com sucesso!');
     }
 }

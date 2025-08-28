@@ -4,7 +4,7 @@
 
               <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-home me-3"></i>Home</a>
                 @can('admin')
-                    <a href="#" class="nav-link mt-4"><i class="fa-solid fa-people-group me-3"></i>Colaborador</a>
+                    <a href="{{ route('colaboration') }}" class="nav-link mt-4"><i class="fa-solid fa-people-group me-3"></i>Colaboradores</a>
                 @endcanany
                 <a href="#" class="nav-link mt-4"><i class="fa-solid fa-chalkboard-user me-3"></i></i>Empreendedor</a>
                 <a href="{{ route('user.profile') }}" class="nav-link mt-4"><i class="fa-solid fa-user-gear me-3"></i>Editar perfil</a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -21,7 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
     Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
 
-    // alterar senha
+    // alterar senha do usuario
     Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
     Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alteraPasswordUpdate'])->name('altera.password.update');
+
+    // colaborators
+    Route::get('/colaboration', [ColaboratorsController::class, 'index'])->name('colaboration');
 });
