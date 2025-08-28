@@ -1,16 +1,16 @@
 <div class=" d-flex flex-wrap justify-content-between">
     <div class="form-floating mb-3 col-md-6">
-        <input type="text" readonly class="form-control-plaintext" id="floatingInput" value="{{ auth()->user()->name }}" placeholder="name@example.com">
+        <input type="text" readonly class="form-control-plaintext " id="floatingInput" value="{{ auth()->user()->name }}" placeholder="name@example.com" aria-label="Disabled input">
         <label for="floatingInput">Nome Completo:</label>
     </div>
 
     <div class="form-floating mb-3 col-md-9">
-        <input type="email" readonly class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->email }}">
+        <input type="email" readonly class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->email }}" aria-label="Disabled input">
         <label for="floatingInput">Email: </label>
     </div>
 
     <div class="form-floating mb-3 col-md-4">
-        <input type="email" readonly class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->department->name }}">
+        <input type="email" readonly class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->department->name }}" aria-label="Disabled input">
         <label for="floatingInput">Cargo: </label>
     </div>
 

@@ -18,4 +18,9 @@ class ColaboratorsController extends Controller
 
         return view('colaboration.colaborators', compact('colaborators'));
     }
+
+    public function createColaborator(): View
+    {
+        return view('colaboration.create-colaborator');
+    }
 }
