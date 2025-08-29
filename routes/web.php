@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function () {
     // colaborators
     Route::get('/colaboration', [ColaboratorsController::class, 'index'])->name('colaboration');
     Route::get('/colaboration/create', [ColaboratorsController::class, 'createColaborator'])->name('colaboration.create.colaborator');
+    Route::post('/colaboration/colaborator-submit', [ColaboratorsController::class, 'colaboratorSubmit'])->name('colaboration.colaborator.submit');
 });

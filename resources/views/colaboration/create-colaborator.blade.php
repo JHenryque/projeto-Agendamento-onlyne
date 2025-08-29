@@ -26,6 +26,7 @@
                             @enderror
                         </div>
                     </div>
+
                     <div class="form-floating mb-3 col-md-4">
                         <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput">
                         <label for="floatingInput">Telefone: </label>
@@ -84,6 +85,30 @@
                             {{ $message }}
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex">
+                            <div class="pe-2">
+                                <label for="select_department">Department</label>
+                                <select class="form-select pe-5" id="select_department" name="select_department">
+                                    @foreach ($departments as $department)
+
+                                        @if($department->id != 1)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endif
+
+                                    @endforeach
+                                </select>
+                                @error('select_department')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-grow-1">
+                        <button type="submit" class="btn btn-outline-primary mt-4 mb-5">Novo Colaborador</button>
                     </div>
                 </form>
             </div>
