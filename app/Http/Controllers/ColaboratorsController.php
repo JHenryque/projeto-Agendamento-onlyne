@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmAccountEmail;
+use App\Mail\ConfirmPasswordEmail;
 use App\Models\Departments;
 use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+
 
 class ColaboratorsController extends Controller
 {
@@ -15,7 +20,7 @@ class ColaboratorsController extends Controller
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
-        $colaborators = User::with('user_adresses', 'department')->where('role', '<>', 'admin')->get();
+        $colaborators = User::with('adresses', 'department')->where('role', '<>', 'admin')->get();
 
         return view('colaboration.colaborators', compact('colaborators'));
     }
@@ -31,18 +36,18 @@ class ColaboratorsController extends Controller
 
     public function colaboratorSubmit(Request $request)
     {
-        Auth::user()->can('admin') ? : abort(403, 'You are not allowed to access this page');
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
         $request->validate([
             'name'=>'required|string|max:255',
             'email'=>'required|email|max:255|unique:users,email',
             'select_department'=>'required|exists:departments,id',
             'address'=>'required|string|max:255',
-            'zip_code'=>'required|string|max:10',
-            'city'=>'required|string|max:50',
+            'cep'=>'required|string|max:10',
+            'cidade' => 'required|min:3|max:100',
             'phone'=>'required|string|max:50',
-            'salary'=>'required|decimal:2',
-            'admission_date'=>'required|date_format:Y-m-d',
+            'number' => 'required|min:3|max:1000',
+            'bairro' => 'required|min:3|max:50',
         ]);
 
         // check if department id === 2
@@ -58,12 +63,30 @@ class ColaboratorsController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->confirmation_token = $token;
-        $user->role = 'rh';
+        $user->remember_token = $token;
+        $user->role = 'colaborator';
+        $user->permissions = '["colaborator"]';
         $user->department_id = $request->select_department;
-        $user->permissions = '["rh"]';
         $user->save();
 
+        $user->adresses()->create([
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'number' => $request->number,
+            'bairro' => $request->bairro,
+            'cidade' => $request->cidade,
+            'cep' => $request->cep,
+        ]);
+
+
         // save user details
+        Mail::to($request->user())->send(new ConfirmAccountEmail(route('confirm-account', $token)));
+
+        if(!$user)
+        {
+            return redirect()->route('login')->with('error', 'Ocorreu um erro ao enviar o e-mail.');
+        }
+
+        return redirect()->route('colaboration')->with('success', 'O foi enviado com sucesso.');
     }
 }

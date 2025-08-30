@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Crypt;
 class ConfirmAccountController extends Controller
 {
     // verificar se o token e valido
-    public function confirmAccount(User $user)
+    public function confirmAccount($token)
     {
-        $user = User::findOrFail($user->id);
+        $user = User::where('remember_token', $token)->first();
         if (!$user) {
             abort(404, 'token é invalido');
         }

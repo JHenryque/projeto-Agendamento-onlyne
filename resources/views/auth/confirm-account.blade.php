@@ -1,4 +1,4 @@
-<x-layout-guest pageTitle="Confirmation password">
+<x-layout-guest title="Confirmation password">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-4">
