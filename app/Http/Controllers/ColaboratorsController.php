@@ -96,4 +96,32 @@ class ColaboratorsController extends Controller
 
         return redirect()->route('colaboration')->with('success', 'O foi enviado com sucesso.');
     }
+
+    public function editColaborator($id):view
+    {
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
+
+        $colaborator = User::with('adresses')->where('role', 'colaborator')->findOrFail($id);
+
+        $departments = Departments::all();
+
+        return view('colaboration.edit-colaborator', compact('colaborator', 'departments'));
+    }
+
+    public function updateColaborator(Request $request)
+    {
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
+
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'email'=>'required|email|max:255|unique:users,email',
+            'select_department'=>'required|exists:departments,id',
+            'phone'=>'required|min:11|max:12',
+            'address'=>'required|string|max:255',
+            'number' => 'required|min:3|max:1000',
+            'cidade' => 'required|min:3|max:100',
+            'bairro' => 'required|min:3|max:50',
+            'cep'=>'required|string|max:10',
+        ]);
+    }
 }

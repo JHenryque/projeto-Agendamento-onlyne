@@ -7,6 +7,21 @@
         <div class="my-5">
             <a href="{{ route('colaboration.create.colaborator') }}" class="btn btn-outline-primary ms-5">Criar novo Colaborador</a>
         </div>
+
+        @if(session('success'))
+            <div class="alert bg-success alert-dismissible text-center fade show" role="alert">
+                <strong class="text-center">{{ session('success') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert bg-danger alert-dismissible text-center fade show" role="alert">
+                <strong class="text-center">Ops aconteceu um Error! :(</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
         <div class="row col-lg-12 justify-content-center">
             @if($colaborators->count() === 0)
                 <div class="text-center my-5 text-info">
@@ -51,7 +66,7 @@
                                    @can('admin')
                                        <div class="btn-group m-0" role="group" aria-label="Basic mixed styles example">
                                            @if(empty($colaborator->deleted_at))
-                                               <a href="#" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
+                                               <a href="{{ route('colaboration.edit.colaborator', ['id' => $colaborator->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
                                                <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
                                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
                                            @else
