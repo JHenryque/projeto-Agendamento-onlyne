@@ -20,9 +20,16 @@ class ColaboratorsController extends Controller
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
-        $colaborators = User::with('adresses', 'department')->where('role', '<>', 'admin')->get();
+        $colaborators = User::with('adresses')->where('role', 'colaborator')->orWhere('role', 'admin')->get();
 
         return view('colaboration.colaborators', compact('colaborators'));
+    }
+
+    public function homeColaborators(): View
+    {
+        $colaborators = User::with('adresses', 'department')->where('role',  'colaborador')->get();
+
+        return view('colaboration.home', compact('colaborators'));
     }
 
     public function createColaborator(): View
@@ -42,12 +49,12 @@ class ColaboratorsController extends Controller
             'name'=>'required|string|max:255',
             'email'=>'required|email|max:255|unique:users,email',
             'select_department'=>'required|exists:departments,id',
+            'phone'=>'required|min:11|max:12',
             'address'=>'required|string|max:255',
-            'cep'=>'required|string|max:10',
-            'cidade' => 'required|min:3|max:100',
-            'phone'=>'required|string|max:50',
             'number' => 'required|min:3|max:1000',
+            'cidade' => 'required|min:3|max:100',
             'bairro' => 'required|min:3|max:50',
+            'cep'=>'required|string|max:10',
         ]);
 
         // check if department id === 2
@@ -70,8 +77,8 @@ class ColaboratorsController extends Controller
         $user->save();
 
         $user->adresses()->create([
-            'phone' => $request->phone,
             'address' => $request->address,
+            'phone' => $request->phone,
             'number' => $request->number,
             'bairro' => $request->bairro,
             'cidade' => $request->cidade,
@@ -80,7 +87,7 @@ class ColaboratorsController extends Controller
 
 
         // save user details
-        Mail::to($request->user())->send(new ConfirmAccountEmail(route('confirm-account', $token)));
+        Mail::to($request->user())->send(new ConfirmPasswordEmail(route('confirm-account', $token)));
 
         if(!$user)
         {

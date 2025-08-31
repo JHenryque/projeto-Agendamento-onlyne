@@ -8,13 +8,23 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('confirm-account/{id)', [ConfirmAccountController::class, 'confirmAccount'])->name('confirm-account');
+    Route::get('confirm-account/{id})', [ConfirmAccountController::class, 'confirmConta'])->name('confirm-account');
+    Route::post('confirm-account', [ConfirmAccountController::class, 'confirmAccountSubmit'])->name('confirm-account.submit');
 });
 
 Route::middleware('auth')->group(function () {
 
     Route::redirect('/', '/home');
-    Route::get('/home', [UserController::class, 'index'])->name('home');
+    Route::get('/home', function () {
+
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.home');
+        } else if (auth()->user()->role === 'colaborator') {
+            return redirect()->route('colaboration.home');
+        }
+    })->name('home');
+
+    Route::get('/admin/home', [UserController::class, 'index'])->name('admin.home');
 
     // perfil do usuario
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
@@ -30,4 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/colaboration', [ColaboratorsController::class, 'index'])->name('colaboration');
     Route::get('/colaboration/create', [ColaboratorsController::class, 'createColaborator'])->name('colaboration.create.colaborator');
     Route::post('/colaboration/colaborator-submit', [ColaboratorsController::class, 'colaboratorSubmit'])->name('colaboration.colaborator.submit');
+
+    // usuario colaborador
+    Route::get('/colaboration/home', [ColaboratorsController::class, 'homeColaborators'])->name('colaboration.home');
 });

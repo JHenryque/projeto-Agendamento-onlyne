@@ -1,15 +1,17 @@
 <x-layout-guest title="Confirmation password">
     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-4">
+        <div class="h-100">
+            <div class="d-flex flex-wrap align-content-center justify-content-center w-100" style="min-height: 850px;">
 
                 <!-- login form -->
-                <div class="card p-5">
+                <div class="card p-3 col-6 ">
+                    <h3 class="text-primary mb-5 mt-2">Confirme o sua senha</h3>
 
-                    <form action="#" method="post">
+
+                    <form action="{{ route('confirm-account.submit') }}" method="post">
                         @csrf
 
-                        <input type="hidden" name="token" value="{{ $user->confirmation_token }}">
+                        <input type="hidden" name="token" value="{{ $user->remember_token }}">
 
                         <div class="mb-3">
                             <label for="password">Password</label>
@@ -27,7 +29,7 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-end align-items-center">
+                        <div class="d-flex justify-content-end align-items-center mt-lg-5">
                             <button type="submit" class="btn btn-primary px-4">Confirme</button>
                         </div>
 

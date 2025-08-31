@@ -16,9 +16,10 @@ class ConfirmPasswordEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public string $url;
+    public function __construct(string $url)
     {
-        //
+        $this->url = $url;
     }
 
     /**

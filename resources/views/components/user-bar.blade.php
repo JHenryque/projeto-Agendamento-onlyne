@@ -12,7 +12,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="{{ route('home') }}">Agendamento-Onlyne</a>
-            <div class="d-flex justify-items-end align-items-center" id="navbarSupportedContent">
+            <div class="d-flex justify-items-end align-items-center pe-4" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

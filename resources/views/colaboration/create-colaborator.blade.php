@@ -32,7 +32,7 @@
                         <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput" value="{{ old('phone') }}">
                         <label for="floatingInput">Telefone: </label>
                         <div id="validationInput" class="form-text text-danger">
-                            @error('telefone')
+                            @error('phone')
                             {{ $message }}
                             @enderror
                         </div>
