@@ -10,11 +10,6 @@
     </div>
 
     <div class="form-floating mb-3 col-md-4">
-        <input type="email" readonly class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->department->name }}" aria-label="Disabled input">
-        <label for="floatingInput">Cargo: </label>
-    </div>
-
-    <div class="form-floating mb-3 col-md-4">
         <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ auth()->user()->adresses->phone }}" aria-describedby="validationInput">
         <label for="floatingInput">Telefone: </label>
         <div id="validationInput" class="form-text">

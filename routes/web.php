@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/colaboration/colaborator-submit', [ColaboratorsController::class, 'colaboratorSubmit'])->name('colaboration.colaborator.submit');
     Route::get('/colaboration/edit/colaborator/{id}', [ColaboratorsController::class, 'editColaborator'])->name('colaboration.edit.colaborator');
     Route::post('/colaboration/update/colaborator', [ColaboratorsController::class, 'updateColaborator'])->name('colaboration.update.colaborator');
+    Route::get('/colaboration/deleted/{id}', [ColaboratorsController::class, 'deleteColaborator'])->name('colaboration.delete.colaborator');
 
     // usuario colaborador
     Route::get('/colaboration/home', [ColaboratorsController::class, 'homeColaborators'])->name('colaboration.home');

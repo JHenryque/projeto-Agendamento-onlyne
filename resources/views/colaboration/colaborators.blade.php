@@ -65,14 +65,18 @@
                                <td>
                                    @can('admin')
                                        <div class="btn-group m-0" role="group" aria-label="Basic mixed styles example">
-                                           @if(empty($colaborator->deleted_at))
-                                               <a href="{{ route('colaboration.edit.colaborator', ['id' => $colaborator->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
-                                               <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
-                                               <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
-                                           @else
-                                               <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
-                                               <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-arrow-up me-2"></i></a>
+
+                                            @if($colaborator->role != 'admin')
+                                                @if(empty($colaborator->deleted_at))
+                                                   <a href="{{ route('colaboration.edit.colaborator', ['id' => $colaborator->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
+                                                   <a href="{{ route('colaboration.delete.colaborator', ['id' => $colaborator->id]) }}" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                                   <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
+                                               @else
+                                                   <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
+                                                   <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-arrow-up me-2"></i></a>
+                                               @endif
                                            @endif
+
                                        </div>
                                    @endcan
                                </td>

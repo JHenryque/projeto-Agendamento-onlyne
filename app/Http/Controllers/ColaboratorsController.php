@@ -124,4 +124,13 @@ class ColaboratorsController extends Controller
             'cep'=>'required|string|max:10',
         ]);
     }
+
+    public function deleteColaborator($id): View
+    {
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
+
+        $colaborator = User::with('adresses')->where('role', 'colaborator')->findOrFail($id);
+
+        return view('colaboration.delete-colaborator', compact('colaborator'));
+    }
 }
