@@ -53,5 +53,8 @@ Route::middleware('auth')->group(function () {
     // usuario colaborador
     Route::get('/colaboration/home', [ColaboratorsController::class, 'homeColaborators'])->name('colaboration.home');
 
+    // Empreendedores
     Route::get('/empreendedor', [EmpreendedorController::class, 'index'])->name('empreendedor');
+    Route::get('/empreendedor/create', [EmpreendedorController::class, 'createEmpreendedores'])->name('empreendedor.create.empreendedores');
+    Route::post('/empreendedor/submit', [EmpreendedorController::class, 'submitEmpreendedor'])->name('empreendedor.submit.empreendedor');
 });

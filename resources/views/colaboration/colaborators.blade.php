@@ -23,10 +23,6 @@
             </div>
         @endif
 
-        <div class="my-5">
-            <a href="{{ route('colaboration.create.colaborator') }}" class="btn btn-outline-primary ms-5">Criar novo Colaborador</a>
-        </div>
-
         <div class="row col-lg-12 justify-content-center">
             @if($colaborators->count() === 0)
                 <div class="text-center my-5 text-info">
@@ -35,6 +31,9 @@
                 </div>
 
             @else
+                <div class="my-5">
+                    <a href="{{ route('colaboration.create.colaborator') }}" class="btn btn-outline-primary ms-5">Criar novo Colaborador</a>
+                </div>
                <div class="col-lg-10 mb-5 table-responsive">
                    <table class="table table-hover">
                        <thead class="table-dark">

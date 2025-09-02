@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('colaborador_id');
-            $table->string('nome_logomarca', 150);
+            $table->string('logomarca', 150);
+            $table->string('doc', 14);
             $table->string('phone', 12);
             $table->string('address', 200);
             $table->string('number',);

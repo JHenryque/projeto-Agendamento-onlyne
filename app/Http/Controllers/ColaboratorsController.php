@@ -20,7 +20,7 @@ class ColaboratorsController extends Controller
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
-        $colaborators = User::withTrashed()->with('adresses')->where('role', 'colaborator')->orWhere('role', 'admin')->get();
+        $colaborators = User::withTrashed()->with('adresses')->where('role', 'colaborator')->get();
 
         return view('colaboration.colaborators', compact('colaborators'));
     }
