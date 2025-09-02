@@ -3,7 +3,7 @@
                 <h3 class="text-primary">Delete colaborator</h3>
                 <hr>
         <div class="row justify-content-center align-content-center h-100">
-            <div class="col-7">
+            <div class="col-5">
 
                 <div class="card p-4 text-center">
 
@@ -11,8 +11,10 @@
 
                     <div class="text-center">
                         <h3 class="my-4">{{ $colaborator->name }}</h3>
-                        <a href="{{ route('colaboration') }}" class="btn btn-sm btn-outline-primary">Não</a>
-                        <a href="#" class="btn btn-sm btn-outline-danger">Sim</a>
+                        <div class="d-flex flex-row justify-content-center gap-4">
+                            <a href="{{ route('colaboration') }}" class="btn btn-sm btn-outline-primary">Não</a>
+                            <a href="{{ route('colaboration.destroy.colaborator', ['id' => $colaborator->id]) }}" class="btn btn-sm btn-outline-danger">Sim</a>
+                        </div>
                         <p class="my-4">{{ $colaborator->email }}</p>
                     </div>
 

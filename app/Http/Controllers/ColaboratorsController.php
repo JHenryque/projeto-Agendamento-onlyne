@@ -20,7 +20,7 @@ class ColaboratorsController extends Controller
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
-        $colaborators = User::with('adresses')->where('role', 'colaborator')->orWhere('role', 'admin')->get();
+        $colaborators = User::withTrashed()->with('adresses')->where('role', 'colaborator')->orWhere('role', 'admin')->get();
 
         return view('colaboration.colaborators', compact('colaborators'));
     }
@@ -94,7 +94,7 @@ class ColaboratorsController extends Controller
             return redirect()->route('login')->with('error', 'Ocorreu um erro ao enviar o e-mail.');
         }
 
-        return redirect()->route('colaboration')->with('success', 'O foi enviado com sucesso.');
+        return redirect()->route('colaboration')->with('success', 'O foi enviado com sucesso. Verifique no Email na caixa de mensagem.');
     }
 
     public function editColaborator($id):view
@@ -113,16 +113,32 @@ class ColaboratorsController extends Controller
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
         $request->validate([
-            'name'=>'required|string|max:255',
-            'email'=>'required|email|max:255|unique:users,email',
-            'select_department'=>'required|exists:departments,id',
-            'phone'=>'required|min:11|max:12',
-            'address'=>'required|string|max:255',
+            'user_id'=> 'required|exists:users,id',
+            'name'=> 'required|string|max:255',
+            'email'=> 'required|email|max:255',
+            'phone'=> 'required|min:11|max:12',
+            'address'=> 'required|string|max:255',
             'number' => 'required|min:3|max:1000',
             'cidade' => 'required|min:3|max:100',
             'bairro' => 'required|min:3|max:50',
             'cep'=>'required|string|max:10',
         ]);
+
+        $user = User::with('adresses')->findOrFail($request->user_id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        $user->adresses()->update([
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'number' => $request->number,
+            'bairro' => $request->bairro,
+            'cidade' => $request->cidade,
+            'cep' => $request->cep,
+        ]);
+
+        return redirect()->route('colaboration')->with('success', 'O foi atualizado com sucesso.');
     }
 
     public function deleteColaborator($id): View
@@ -132,5 +148,25 @@ class ColaboratorsController extends Controller
         $colaborator = User::with('adresses')->where('role', 'colaborator')->findOrFail($id);
 
         return view('colaboration.delete-colaborator', compact('colaborator'));
+    }
+
+    public function destroyColaborator($id)
+    {
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
+
+        $colaborator = User::findOrFail($id);
+        $colaborator->delete();
+
+        return redirect()->route('colaboration')->with('success', 'O foi removido com sucesso.');
+    }
+
+    public function restoreColaborator($id)
+    {
+        Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
+
+        $colaborator = User::withTrashed()->where('role', 'colaborator')->findOrFail($id);
+        $colaborator->restore();
+
+        return redirect()->route('colaboration')->with('success', 'O foi restaurado com sucesso.');
     }
 }

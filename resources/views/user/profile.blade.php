@@ -1,6 +1,6 @@
 <x-layout-app title="Editar Perfil">
-    <div class="bg-light p-2">
-        <h3>Edite Perfil</h3>
+    <div class="bg-light p-5">
+        <h3 class="text-primary">Edite Perfil</h3>
         <hr>
         <x-profile-user/>
         <hr>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('empreendedor', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('colaborador_id');
             $table->string('nome_logomarca', 150);
             $table->string('phone', 12);
             $table->string('address', 200);

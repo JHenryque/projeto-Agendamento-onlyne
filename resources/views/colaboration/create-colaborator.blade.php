@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="form-floating mb-3 col-md-2">
-                        <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput" value="{{ old('namber') }}">
+                        <input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput" value="{{ old('number') }}">
                         <label for="floatingInput">N°: </label>
                         <div id="validationInput" class="form-text text-danger">
                             @error('number')

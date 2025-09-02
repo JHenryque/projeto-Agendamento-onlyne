@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
+use App\Http\Controllers\EmpreendedorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/home', [UserController::class, 'index'])->name('admin.home');
 
+    // global para todos usuarios
+    Route::get('/users/detail/{id}', [UserController::class, 'userDetails'])->name('user.detail');
+
     // perfil do usuario
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
     Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
@@ -43,7 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/colaboration/edit/colaborator/{id}', [ColaboratorsController::class, 'editColaborator'])->name('colaboration.edit.colaborator');
     Route::post('/colaboration/update/colaborator', [ColaboratorsController::class, 'updateColaborator'])->name('colaboration.update.colaborator');
     Route::get('/colaboration/deleted/{id}', [ColaboratorsController::class, 'deleteColaborator'])->name('colaboration.delete.colaborator');
+    Route::get('/colaboration/destroy/{id}', [ColaboratorsController::class, 'destroyColaborator'])->name('colaboration.destroy.colaborator');
+    Route::get('/colaboration/restore/{id}', [ColaboratorsController::class, 'restoreColaborator'])->name('colaboration.restore.colaborator');
 
     // usuario colaborador
     Route::get('/colaboration/home', [ColaboratorsController::class, 'homeColaborators'])->name('colaboration.home');
+
+    Route::get('/empreendedor', [EmpreendedorController::class, 'index'])->name('empreendedor');
 });

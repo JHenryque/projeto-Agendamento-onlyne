@@ -10,15 +10,27 @@
                 <form action="{{ route('colaboration.update.colaborator') }}" method="post" class="form-floating col-md-8">
                     @csrf
 
+                    <input type="hidden" name="user_id" value="{{ $colaborator->id }}">
+
                     <div class=" d-flex flex-wrap justify-content-between">
                         <div class="form-floating mb-3 col-md-6">
-                            <input type="text" class="form-control-plaintext " id="floatingInput" value="{{ $colaborator->name }}" placeholder="name@example.com">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="floatingInput" value="{{ $colaborator->name }}" placeholder="name@example.com">
                             <label for="floatingInput">Nome Completo:</label>
+                            <div id="validationInput" class="form-text">
+                                @error('name')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-floating mb-3 col-md-9">
-                            <input type="email" class="form-control-plaintext" id="floatingInput" placeholder="name@example.com" value="{{ $colaborator->email }}">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" value="{{ $colaborator->email }}">
                             <label for="floatingInput">Email: </label>
+                            <div id="validationInput" class="form-text">
+                                @error('email')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -45,7 +57,7 @@
                             <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ $colaborator->adresses->phone }}" aria-describedby="validationInput">
                             <label for="floatingInput">Telefone: </label>
                             <div id="validationInput" class="form-text">
-                                @error('telefone')
+                                @error('phone')
                                 {{ $message }}
                                 @enderror
                             </div>

@@ -6,7 +6,9 @@
                 @can('admin')
                     <a href="{{ route('colaboration') }}" class="nav-link mt-4"><i class="fa-solid fa-people-group me-3"></i>Colaboradores</a>
                 @endcanany
-                <a href="#" class="nav-link mt-4"><i class="fa-solid fa-chalkboard-user me-3"></i></i>Empreendedor</a>
+                @can('colaborator')
+                    <a href="{{ route('empreendedor') }}" class="nav-link mt-4"><i class="fa-solid fa-chalkboard-user me-3"></i>Empreendedor</a>
+                @endcan
                 <a href="{{ route('user.profile') }}" class="nav-link mt-4"><i class="fa-solid fa-user-gear me-3"></i>Editar perfil</a>
 
         </div>

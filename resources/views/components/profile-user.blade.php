@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-around p-2">
+<div class="d-flex justify-content-around p-2 flex-wrap">
     <div>
         <i class="fa-solid fa-users me-3"></i>{{ auth()->user()->name }}
     </div>
