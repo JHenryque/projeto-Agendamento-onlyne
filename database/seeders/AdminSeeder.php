@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
         DB::table('users')->insert([
             'department_id' => 1,   // Administração
             'name' => 'Henrique',
-            'email' => 'josehenriquedevops@gmail.com',
+            'email' => 'henrique@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('Aa123456'),
             'role' => 'admin',

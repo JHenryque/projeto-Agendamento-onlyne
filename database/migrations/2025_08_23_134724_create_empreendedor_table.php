@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('empreendedor', function (Blueprint $table) {
+        Schema::create('empreendedors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('colaborador_id');
+            $table->foreignId('colaborator_id');
             $table->string('logomarca', 150);
-            $table->string('doc', 14);
             $table->string('phone', 12);
             $table->string('address', 200);
             $table->string('number',);
@@ -29,6 +28,7 @@ return new class extends Migration
         Schema::create('atendimento', function (Blueprint $table) {
             $table->foreignId('empreendedor_id')->index();
             $table->foreignId('horarios_id')->index();
+            $table->string('token');
             $table->string('name');
             $table->string('preco');
             $table->timestamps();
@@ -50,7 +50,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('empreendedor');
+        Schema::dropIfExists('empreendedors');
         Schema::dropIfExists('atendimento');
         Schema::dropIfExists('horarios');
     }

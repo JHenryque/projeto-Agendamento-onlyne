@@ -27,7 +27,9 @@ class ColaboratorsController extends Controller
 
     public function homeColaborators(): View
     {
-        $colaborators = User::with('adresses', 'department')->where('role',  'colaborador')->get();
+
+        $colaborators = User::withTrashed()->with('empreendedor')->where('role', 'empreendedor')->get();
+
 
         return view('colaboration.home', compact('colaborators'));
     }

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('department_id')->nullable()->index();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('cpf_cnpj', 14)->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 200);
+            $table->string('password', 200)->nullable();
             $table->string('role', 50)->nullable();
             $table->string('permissions', 1000)->nullable();
             $table->rememberToken();
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('user_addresses', function (Blueprint $table) {
+        Schema::create('user_adresses', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('user_id')->index();
             $table->string('phone', 12)->nullable();
@@ -52,6 +53,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('user_addresses');
+        Schema::dropIfExists('user_adresses');
     }
 };

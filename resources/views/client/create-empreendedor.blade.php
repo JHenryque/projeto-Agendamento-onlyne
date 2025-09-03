@@ -8,10 +8,12 @@
                 <form class="col-md-8 mt-5" action="{{ route('empreendedor.submit.empreendedor') }}" method="post">
                     @csrf
 
+                    <input type="hidden" name="colaborator_id" value="{{ auth()->user()->id }}">
+
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
 
                     <div class="form-floating mb-3 col-md-6">
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="validationInput" placeholder="Disabled name@example.com" value="{{ old('name') }}">
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="validationInput" placeholder=" name@example.com" value="{{ old('name') }}">
                         <label for="validationInput" class="form-label">Nome Completo: </label>
                         <div id="validationInput" class="form-text text-danger">
                             @error('name')
@@ -30,6 +32,16 @@
                         </div>
                     </div>
 
+                        <div class="form-floating mb-3 col-md-4">
+                            <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput" value="{{ old('phone') }}">
+                            <label for="floatingInput">Telefone: </label>
+                            <div id="validationInput" class="form-text text-danger">
+                                @error('phone')
+                                {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+
                     <div class="form-floating mb-1 col-md-5">
                         <input type="text" name="logomarca" class="form-control @error('logomarca') is-invalid @enderror" id="validationInput" placeholder="Disabled name@example.com" value="{{ old('logomarca') }}">
                         <label for="validationInput" class="form-label">LogoMarca: </label>
@@ -41,20 +53,10 @@
                     </div>
 
                     <div class="form-floating mb-3 col-md-5">
-                        <input type="text" name="doc" class="form-control @error('doc') is-invalid @enderror" id="validationInput" placeholder="Disabled name@example.com" value="{{ old('doc') }}">
+                        <input type="text" name="cpf_cnpj" class="form-control @error('cpf_cnpj') is-invalid @enderror" id="validationInput" placeholder="Disabled name@example.com" value="{{ old('cpf_cnpj') }}">
                         <label for="validationInput" class="form-label">CPF ou CNPJ: </label>
                         <div id="validationInput" class="form-text text-danger">
-                            @error('doc')
-                            {{ $message }}
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-floating mb-3 col-md-4">
-                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" aria-describedby="validationInput" value="{{ old('phone') }}">
-                        <label for="floatingInput">Telefone: </label>
-                        <div id="validationInput" class="form-text text-danger">
-                            @error('phone')
+                            @error('cpf_cnpj')
                             {{ $message }}
                             @enderror
                         </div>

@@ -55,8 +55,8 @@ class User extends Authenticatable
         return $this->belongsTo(Departments::class);
     }
 
-    public function empreendedores()
+    public function empreendedor()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasOne(Empreendedor::class, 'user_id', 'id');
     }
 }

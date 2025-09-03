@@ -26,15 +26,15 @@
 
 
        <div class="row col-lg-12 justify-content-center">
-           @if($empreendedores->count() === 0)
+           @if($users->count() === 0)
                <div class="text-center my-5 text-info">
                    <p class="display-6">Não existe Empreendedor</p>
-                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-primary">Criar novo Empreendedor</a>
+                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-primary">Cadastrar novo Empreendedor</a>
                </div>
 
            @else
                <div class="my-5">
-                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-outline-primary ms-5">Criar novo Empreendedor</a>
+                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-outline-primary ms-5">Cadastrar novo Empreendedor</a>
                </div>
                <div class="col-lg-10 mb-5 table-responsive">
 
@@ -48,33 +48,43 @@
                            <th>Department</th>
                            <th>Telefone</th>
                            <th>Cidade</th>
+                           @can('admin')<th>Vendedor</th>@endcan
                            <th></th>
                        </tr>
                        </thead>
 
                        <tbody>
 
-                       @foreach($empreendedores as $empreendedor)
+                       @foreach($users as $user)
                            <tr>
-                               <th scope="row">{{ $empreendedor->id }}</th>
-                               <td>{{ $empreendedor->name }}</td>
-                               <td>{{ $empreendedor->email }}</td>
+                               <th scope="row">{{ $user->id }}</th>
+                               <td>{{ $user->name }}</td>
+                               <td>{{ $user->email }}</td>
                                <td>
-                                   @empty($empreendedor->email_verified_at)
+                                   @empty($user->email_verified_at)
                                        <div class="badge bg-danger">Não</div>
                                    @else
                                        <div class="badge bg-success">Sim</div>
                                @endempty
-                               <td>{{ $empreendedor->role }}</td>
-                               <td>{{ $empreendedor->adresses->phone }}</td>
-                               <td>{{ $empreendedor->adresses->cidade }}</td>
+                               <td>{{ $user->role }}</td>
+                               <td>{{ $user->empreendedor->phone }}</td>
+                               <td>{{ $user->empreendedor->cidade }}</td>
+                               @can('admin')
+                                   <td>
+                                       @foreach($cols as $col)
+                                            @if($user->col_id === $col->id)
+                                                {{ $col->name }}
+                                            @endif
+                                       @endforeach
+                                    </td
+                               >@endcan
 
                                <td>
                                    @can('admin')
                                        <div class="btn-group m-0" role="group" aria-label="Basic mixed styles example">
 
-                                           @if($empreendedor->role != 'admin')
-                                               @if(empty($empreendedor->deleted_at))
+                                           @if($user->role != 'admin')
+                                               @if(empty($user->deleted_at))
                                                    <a href="#" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
                                                @else
