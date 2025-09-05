@@ -34,11 +34,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
     Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
     Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
+    Route::get('/profile/altera-password', [ProfileController::class, 'alteraPassword'])->name('user.profile.altera.password');
+    Route::post('/profile/password-update-confirm', [ProfileController::class, 'updatePasswordConfirm'])->name('user.profile.password.update.confirm');
+    Route::get('/profile/codigo-active', [ProfileController::class, 'codigoActive'])->name('user.profile.codigo-active');
+
     Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
 
     // alterar senha do usuario
     Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
     Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alteraPasswordUpdate'])->name('altera.password.update');
+    Route::post('/profile/codigo-active', [ConfirmAccountController::class, 'updateCodigoActive'])->name('update.codigo.active');
 
     // colaborators
     Route::get('/colaboration', [ColaboratorsController::class, 'index'])->name('colaboration');

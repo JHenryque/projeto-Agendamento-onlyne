@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class ConfirmAccountController extends Controller
@@ -51,6 +52,28 @@ class ConfirmAccountController extends Controller
         }
 
         return view('user.altera-password' , compact('user'));
+    }
+
+
+    public function updateCodigoActive(Request $request) {
+
+        $request->validate([
+            'number_activation' => 'required|string|size:6',
+        ],
+        [
+            'number_activation.min' => 'O campo de ativação do número deve ter pelo menos 6 caracteres.',
+            'number_activation.max' => 'O campo de ativação do número deve ter no maximo 6 caracteres.',
+            'number_activation.size' => 'O campo de ativação é de números no maximo 6 caracteres.',
+        ]);
+
+        $user = User::where('remember_token', $request->number_activation)->first();
+
+        if ($user) {
+            return redirect()->route('user.profile.altera.password');
+        } else {
+          return back()->with('error', 'Não existe o codigo digitado!! por favor verifique no email');
+        }
+
     }
 
     public function alteraPasswordUpdate(Request $request) {

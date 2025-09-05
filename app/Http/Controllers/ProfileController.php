@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
@@ -49,6 +50,13 @@ class ProfileController extends Controller
         return view('user.edite-password');
     }
 
+    public function alteraPassword():View
+    {
+        $user = Auth::user();
+
+        return view('user.altera-password', compact('user'));
+    }
+
     public function updatePassword(Request $request) {
 
         $request->validate([
@@ -60,23 +68,54 @@ class ProfileController extends Controller
         //$user = User::first('id');
         $numero = (int) implode('', collect(range(1, 6))->map(fn() => rand(0, 9))->toArray());
 
-        dd($numero);
 
-        $token = Str::random(60);
+        //$token = Str::random(60);
 
         $user = User::findOrFail($request->user()->id);
-        $user->remember_token = $token;
+        $user->remember_token = $numero;
         $user->save();
 
         if($user)
         {
-            redirect()->route('user.profile.password')->with('success', 'verifique o seu email');
+            //redirect()->route('user.profile.password')->with('success', 'verifique o seu email');
 
-            Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $token)));
+            // Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $token)));
+            Mail::to($request->user())->send(new ConfirmAccountEmail($numero));
         }
 
 
-        return redirect()->route('user.profile.password');
+        return redirect()->route('user.profile.codigo-active');
+    }
+
+    public function updatePasswordConfirm(Request $request) {
+        // form validation
+
+        $request->validate([
+            'password' => 'required|min:8|confirmed|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z0-9]+$/',
+            'password_confirmation' => 'required',
+        ],[
+            'password.confirmed' => 'A confirmação do campo de senha não corresponde.',
+            'password.regex' => 'O formato do campo de senha é inválido',
+            'password.min' => 'A senha deve ter pelo menos :min caracteres.',
+            'password.max' => 'A senha deve ter pelo menos :max caracteres.',
+        ]);
+
+
+        //$numero = (int) implode('', collect(range(1, 6))->map(fn() => rand(0, 9))->toArray());
+
+        $user = User::findOrFail($request->user()->id);
+        $user->remember_token = null;
+        $user->password = Crypt::encryptString($request->password);
+        $user->updated_at = Carbon::now();
+        $user->save();
+
+        return redirect()->route('user.profile')->with('success', 'A senha atualizada com sucesso!');
+
+    }
+
+    public function codigoActive():View
+    {
+        return view('user.active-codigo');
     }
 
 }
