@@ -1,4 +1,4 @@
-<x-layout-app title="Delete Colaborator">
+<x-layout-app title="Delete colaborador">
     <div class="container-fluid text-bg-light h-100 p-5">
                 <h3 class="text-primary">Delete colaborator</h3>
                 <hr>

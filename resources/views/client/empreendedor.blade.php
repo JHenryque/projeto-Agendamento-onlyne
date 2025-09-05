@@ -85,14 +85,13 @@
 
                                            @if($user->role != 'admin')
                                                @if(empty($user->deleted_at))
-                                                   <a href="#" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
-                                                   <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                                   <a href="{{ route('empreendedor.edit.empreendedores', ['id'=> $user->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pencil"></i></a>
+                                                   <a href="{{ route('empreendedor.delete.empreendedores', ['id'=> $user->id]) }}" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                                   <a href="{{ route('empreendedor.details.empreendedores', ['id'=> $user->id]) }}" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
                                                @else
-                                                   <a href="#" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-arrow-up pe-1"></i></a>
+                                                   <a href="{{ route('empreendedor.restore.empreendedores', ['id'=> $user->id]) }}" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash-arrow-up pe-1"></i></a>
                                                @endif
-                                               <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
                                            @endif
-
                                        </div>
                                    @endcan
                                </td>

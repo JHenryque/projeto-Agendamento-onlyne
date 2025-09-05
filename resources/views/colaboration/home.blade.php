@@ -22,7 +22,6 @@
                         <th>Telefone</th>
                         <th>Cidade</th>
                         <th>Data - Hora</th>
-                        <th></th>
                     </tr>
                     </thead>
 
@@ -43,13 +42,6 @@
                                 <td>{{ $colaborator->empreendedor->phone }}</td>
                                 <td>{{ $colaborator->empreendedor->cidade }}</td>
                                 <td>{{ $colaborator->empreendedor->created_at->format('d/m/Y - H:i:s') }}</td>
-                                <td>
-                                        <div class="btn-group m-0" role="group" aria-label="Basic mixed styles example">
-                                            @if($colaborator->role != 'admin')
-                                                <a href="#" class="btn btn-sm btn-outline-info"><i class="fa-solid fa-eye"></i></a>
-                                            @endif
-                                        </div>
-                                </td>
                             </tr>
                             @endif
 

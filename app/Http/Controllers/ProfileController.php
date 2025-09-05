@@ -29,7 +29,7 @@ class ProfileController extends Controller
             'number' => 'required|min:3|max:1000',
             'cidade' => 'required|min:3|max:100',
             'bairro' => 'required|min:3|max:50',
-            'cep' => 'required|min:9|max:10',
+            'cep' => 'required|min:8|max:10',
         ]);
 
         $user = User::with('adresses')->findOrFail(auth()->id());
@@ -58,9 +58,11 @@ class ProfileController extends Controller
         ]);
 
         //$user = User::first('id');
+        $numero = (int) implode('', collect(range(1, 6))->map(fn() => rand(0, 9))->toArray());
+
+        dd($numero);
 
         $token = Str::random(60);
-
 
         $user = User::findOrFail($request->user()->id);
         $user->remember_token = $token;

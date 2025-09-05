@@ -72,6 +72,6 @@ class ConfirmAccountController extends Controller
         $user->remember_token = null;
         $user->save();
 
-        return redirect()->route('home')->with('success', 'Senha alterada com sucesso!');
+        return redirect()->route('user.profile')->with('success', 'Senha alterada com sucesso!');
     }
 }

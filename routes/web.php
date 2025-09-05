@@ -56,5 +56,11 @@ Route::middleware('auth')->group(function () {
     // Empreendedor
     Route::get('/empreendedor', [EmpreendedorController::class, 'index'])->name('empreendedor');
     Route::get('/empreendedor/create', [EmpreendedorController::class, 'createEmpreendedores'])->name('empreendedor.create.empreendedores');
-    Route::post('/empreendedor/submit', [EmpreendedorController::class, 'submitEmpreendedor'])->name('empreendedor.submit.empreendedor');
+    Route::post('/empreendedor/submit', [EmpreendedorController::class, 'submitEmpreendedor'])->name('empreendedor.submit.empreendedores');
+    Route::get('/empreendedor/edit/{id}', [EmpreendedorController::class, 'editEmpreendedor'])->name('empreendedor.edit.empreendedores');
+    Route::post('/empreendedor/update', [EmpreendedorController::class, 'updateEmpreendedor'])->name('empreendedor.update.empreendedores');
+    Route::get('/empreendedor/deleted/{id}', [EmpreendedorController::class, 'deleteEmpreendedor'])->name('empreendedor.delete.empreendedores');
+    Route::get('/empreendedor/destroy/{id}', [EmpreendedorController::class, 'destroyEmpreendedor'])->name('empreendedor.destroy.empreendedores');
+    Route::get('/empreendedor/details/{id}', [EmpreendedorController::class, 'detailsEmpreendedor'])->name('empreendedor.details.empreendedores');
+    Route::get('/empreendedor/restore/{id}', [EmpreendedorController::class, 'restoreEmpreendedor'])->name('empreendedor.restore.empreendedores');
 });

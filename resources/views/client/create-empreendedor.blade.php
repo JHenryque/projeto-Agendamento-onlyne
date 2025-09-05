@@ -5,7 +5,7 @@
         <x-profile-user />
         <hr>
         <div class="d-flex justify-content-center col-md-12 w-100">
-                <form class="col-md-8 mt-5" action="{{ route('empreendedor.submit.empreendedor') }}" method="post">
+                <form class="col-md-8 mt-5" action="{{ route('empreendedor.submit.empreendedores') }}" method="post">
                     @csrf
 
                     <input type="hidden" name="colaborator_id" value="{{ auth()->user()->id }}">

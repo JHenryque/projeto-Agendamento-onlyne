@@ -22,6 +22,9 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
     }
 
     /**
@@ -58,8 +61,5 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.reset-password', ['token' => $request->route('token')]);
         });
 
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
     }
 }
