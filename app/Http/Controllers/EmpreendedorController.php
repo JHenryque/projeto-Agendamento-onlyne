@@ -14,6 +14,12 @@ use Illuminate\View\View;
 
 class EmpreendedorController extends Controller
 {
+    // home empreendedor
+    public function homeEmpreendedor():view
+    {
+        return view('client.home');
+    }
+
     //pagina do Empreendedor
     public function index(): View
     {

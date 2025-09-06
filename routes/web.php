@@ -36,13 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
     Route::get('/profile/altera-password', [ProfileController::class, 'alteraPassword'])->name('user.profile.altera.password');
     Route::post('/profile/password-update-confirm', [ProfileController::class, 'updatePasswordConfirm'])->name('user.profile.password.update.confirm');
-    Route::get('/profile/codigo-active', [ProfileController::class, 'codigoActive'])->name('user.profile.codigo-active');
-
     Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
+
 
     // alterar senha do usuario
     Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
     Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alteraPasswordUpdate'])->name('altera.password.update');
+    Route::get('/profile/codigo-active', [ProfileController::class, 'codigoActive'])->name('user.profile.codigo-active');
     Route::post('/profile/codigo-active', [ConfirmAccountController::class, 'updateCodigoActive'])->name('update.codigo.active');
 
     // colaborators
@@ -68,4 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/empreendedor/destroy/{id}', [EmpreendedorController::class, 'destroyEmpreendedor'])->name('empreendedor.destroy.empreendedores');
     Route::get('/empreendedor/details/{id}', [EmpreendedorController::class, 'detailsEmpreendedor'])->name('empreendedor.details.empreendedores');
     Route::get('/empreendedor/restore/{id}', [EmpreendedorController::class, 'restoreEmpreendedor'])->name('empreendedor.restore.empreendedores');
+
+    // home Empreendedor
+    Route::get('/empreendedor/home', [EmpreendedorController::class, 'homeEmpreendedor'])->name('empreendedor.home');
 });
