@@ -24,7 +24,14 @@
                 <form action="{{ route('user.profile.update') }}" method="post" class="form-floating col-md-8">
                     @csrf
 
-                    <x-formulario-input/>
+                    @if(auth()->user()->role === 'colaborator' || auth()->user()->role === 'admin')
+                    {{--            pagina do furmuario admin e colaborador               --}}
+                        <x-formulario-input/>
+                    @else
+                        {{--            pagina do furmuario Empreendedor               --}}
+                        <x-formulario-empreendedor/>
+                    @endif
+
 
                     <button type="submit" class="btn btn-outline-primary mt-3 col-md-10">Alterar perfil</button>
                 </form>

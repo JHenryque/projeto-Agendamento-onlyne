@@ -23,6 +23,7 @@ class ProfileController extends Controller
         return view('user.profile', compact('users'));
     }
 
+    // updade usuario
     public function updateProfile(Request $request) {
         $request->validate([
             'phone' => 'required|min:11|max:15',
@@ -33,30 +34,35 @@ class ProfileController extends Controller
             'cep' => 'required|min:8|max:10',
         ]);
 
-        $user = User::with('adresses')->findOrFail(auth()->id());
-        $user->adresses->phone = $request->input('phone');
-        $user->adresses->address = $request->input('address');
-        $user->adresses->number = $request->input('number');
-        $user->adresses->cidade = $request->input('cidade');
-        $user->adresses->bairro = $request->input('bairro');
-        $user->adresses->cep = $request->input('cep');
-        $user->adresses->save();
+        $user = User::with('adresses', 'empreendedor')->findOrFail(auth()->id());
+        if($user->role === 'colaborator') {
+            $user->adresses->phone = $request->input('phone');
+            $user->adresses->address = $request->input('address');
+            $user->adresses->number = $request->input('number');
+            $user->adresses->cidade = $request->input('cidade');
+            $user->adresses->bairro = $request->input('bairro');
+            $user->adresses->cep = $request->input('cep');
+            $user->adresses->save();
+        } else {
+//            $user->empreendedor->phone = $request->input('phone');
+            $user->empreendedor->address = $request->input('address');
+            $user->empreendedor->number = $request->input('number');
+            $user->empreendedor->cidade = $request->input('cidade');
+            $user->empreendedor->bairro = $request->input('bairro');
+            $user->empreendedor->cep = $request->input('cep');
+            $user->empreendedor->save();
+        }
 
 
        return redirect()->back()->with('success', 'Dados atualizados com sucesso! ;)');
     }
 
+    // pagina html input email
     public function editePassword() {
         return view('user.edite-password');
     }
 
-    public function alteraPassword():View
-    {
-        $user = Auth::user();
-
-        return view('user.altera-password', compact('user'));
-    }
-
+    // post update email
     public function updatePassword(Request $request) {
 
         $request->validate([
@@ -87,6 +93,15 @@ class ProfileController extends Controller
         return redirect()->route('user.profile.codigo-active');
     }
 
+    // pagina html input password
+    public function alteraPassword():View
+    {
+        $user = Auth::user();
+
+        return view('user.altera-password', compact('user'));
+    }
+
+    // um post auteraçao do password
     public function updatePasswordConfirm(Request $request) {
         // form validation
 
@@ -113,6 +128,7 @@ class ProfileController extends Controller
 
     }
 
+    // pagina html ativaçao do codigo para auterar o password
     public function codigoActive():View
     {
         return view('user.active-codigo');

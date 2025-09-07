@@ -9,6 +9,10 @@
                 @can('colaborator')
                     <a href="{{ route('empreendedor') }}" class="nav-link mt-4"><i class="fa-solid fa-chalkboard-user me-3"></i>Empreendedor</a>
                 @endcan
+                @can('empreendedor')
+                    <a href="#" class="nav-link mt-4"><i class="fa-solid fa-calendar me-3"></i>Atendimento</a>
+                    <a href="#" class="nav-link mt-4"><i class="fa-solid fa-business-time me-3"></i>Horario</a>
+                @endcan
                 <a href="{{ route('user.profile') }}" class="nav-link mt-4"><i class="fa-solid fa-user-gear me-3"></i>Editar perfil</a>
 
         </div>

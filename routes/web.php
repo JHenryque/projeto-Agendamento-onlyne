@@ -19,31 +19,37 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
 
         if (auth()->user()->role === 'admin') {
+            // pagina home admin
             return redirect()->route('admin.home');
         } else if (auth()->user()->role === 'colaborator') {
+            // pagina home colaborador
             return redirect()->route('colaboration.home');
+        } else if (auth()->user()->role === 'empreendedor') {
+            // pagina home emprendedor
+            return redirect()->route('empreendedor.home');
         }
     })->name('home');
 
     Route::get('/admin/home', [UserController::class, 'index'])->name('admin.home');
 
-    // global para todos usuarios
-    Route::get('/users/detail/{id}', [UserController::class, 'userDetails'])->name('user.detail');
-
     // perfil do usuario
     Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile');
     Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('user.profile.update');
-    Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
+
+    // Envia um codigo de ativacao para email
+    Route::get('/profile/codigo-active', [ProfileController::class, 'codigoActive'])->name('user.profile.codigo-active');
+    Route::post('/profile/codigo-active', [ConfirmAccountController::class, 'updateCodigoActive'])->name('update.codigo.active');  // confirmAccountController
     Route::get('/profile/altera-password', [ProfileController::class, 'alteraPassword'])->name('user.profile.altera.password');
     Route::post('/profile/password-update-confirm', [ProfileController::class, 'updatePasswordConfirm'])->name('user.profile.password.update.confirm');
+
+    // Envia um link pelo email para alterar senha
+    Route::get('/profile/password', [ProfileController::class, 'editePassword'])->name('user.profile.password');
     Route::post('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('user.profile.password.update');
-
-
-    // alterar senha do usuario
+    // ----------- confirmAccountController
     Route::get('/profile/altera-password/{token}', [ConfirmAccountController::class, 'alteraPassword'])->name('altera.password');
     Route::post('/profile/altera-password', [ConfirmAccountController::class, 'alteraPasswordUpdate'])->name('altera.password.update');
-    Route::get('/profile/codigo-active', [ProfileController::class, 'codigoActive'])->name('user.profile.codigo-active');
-    Route::post('/profile/codigo-active', [ConfirmAccountController::class, 'updateCodigoActive'])->name('update.codigo.active');
+
+   // ---------------------------------------------------fim Profile -------------------------------------------------------------------------
 
     // colaborators
     Route::get('/colaboration', [ColaboratorsController::class, 'index'])->name('colaboration');
@@ -54,9 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/colaboration/deleted/{id}', [ColaboratorsController::class, 'deleteColaborator'])->name('colaboration.delete.colaborator');
     Route::get('/colaboration/destroy/{id}', [ColaboratorsController::class, 'destroyColaborator'])->name('colaboration.destroy.colaborator');
     Route::get('/colaboration/restore/{id}', [ColaboratorsController::class, 'restoreColaborator'])->name('colaboration.restore.colaborator');
+    Route::get('/users/detail/{id}', [UserController::class, 'userDetails'])->name('user.detail');// -- colaborator
 
-    // usuario colaborador
+    // home colaborador
     Route::get('/colaboration/home', [ColaboratorsController::class, 'homeColaborators'])->name('colaboration.home');
+
+    // ----------------------------------------------------fim Colaboration-------------------------------------------------------------------------
 
     // Empreendedor
     Route::get('/empreendedor', [EmpreendedorController::class, 'index'])->name('empreendedor');
@@ -71,4 +80,6 @@ Route::middleware('auth')->group(function () {
 
     // home Empreendedor
     Route::get('/empreendedor/home', [EmpreendedorController::class, 'homeEmpreendedor'])->name('empreendedor.home');
+
+    // -----------------------------------------------------Fim Empeendedor------------------------------------------------------------------------
 });

@@ -69,6 +69,7 @@
                                <td>{{ $user->role }}</td>
                                <td>{{ $user->empreendedor->phone }}</td>
                                <td>{{ $user->empreendedor->cidade }}</td>
+
                                @can('admin')
                                    <td>
                                        @foreach($cols as $col)
@@ -76,8 +77,8 @@
                                                 {{ $col->name }}
                                             @endif
                                        @endforeach
-                                    </td
-                               >@endcan
+                                    </td>
+                               @endcan
 
                                <td>
                                    @can('admin')

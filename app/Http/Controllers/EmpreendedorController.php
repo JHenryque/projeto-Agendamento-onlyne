@@ -27,6 +27,8 @@ class EmpreendedorController extends Controller
 
         $users = User::withTrashed()->with('empreendedor')->where('role', 'empreendedor')->get();
 
+
+
         $cols = User::where('role', 'admin')->OrWhere('role', 'colaborator')->get();
 
         return view('client.empreendedor', compact('users', 'cols'));
