@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\EmpreendedorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,8 +80,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/empreendedor/details/{id}', [EmpreendedorController::class, 'detailsEmpreendedor'])->name('empreendedor.details.empreendedores');
     Route::get('/empreendedor/restore/{id}', [EmpreendedorController::class, 'restoreEmpreendedor'])->name('empreendedor.restore.empreendedores');
 
-    // home Empreendedor
-    Route::get('/empreendedor/home', [EmpreendedorController::class, 'homeEmpreendedor'])->name('empreendedor.home');
 
     // -----------------------------------------------------Fim Empeendedor------------------------------------------------------------------------
+
+    // home Empreendedor
+    Route::get('/clients/home', [ClientController::class, 'homeEmpreendedor'])->name('empreendedor.home');
+
+
+    // servicos
+    Route::get('/{logomarca}/{ref}', [ServicesController::class, 'index'])->name('services');
 });

@@ -14,13 +14,7 @@ use Illuminate\View\View;
 
 class EmpreendedorController extends Controller
 {
-    // home empreendedor
-    public function homeEmpreendedor():view
-    {
-        return view('client.home');
-    }
-
-    //pagina do Empreendedor
+    //pagina liberado para admin e colaborador do Empreendedor
     public function index(): View
     {
         Auth::user()->can('colaborator') ? : abort(403, 'Você não tem permissão para acessar esta página.');
