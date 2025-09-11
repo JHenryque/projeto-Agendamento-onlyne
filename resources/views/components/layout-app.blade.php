@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.min.css') }}">
     <!-- custom -->
     <link rel="stylesheet" href="{{ asset('assets/css/stylles.css') }}">
+    <link href="{{ asset('assets/css/media.css') }}" rel="stylesheet">
 </head>
 
 <body>

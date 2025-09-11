@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="d-flex flex-grow-1">
-                        <button type="submit" class="btn btn-outline-primary mt-4 mb-5">Novo Colaborador</button>
+                        <button type="submit" class="btn btn-outline-primary mt-4 mb-5">Cadastrar</button>
                     </div>
                 </form>
             </div>

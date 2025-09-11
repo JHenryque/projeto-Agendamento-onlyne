@@ -13,6 +13,6 @@ class ServicesController extends Controller
     public function index(string $logomarca, string $id):View
     {
 
-      return view('services.service', [])
+      return view('services.service',);
     }
 }

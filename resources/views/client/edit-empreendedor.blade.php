@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="d-flex flex-wrap justify-content-between">
-                        <button type="submit" class="btn btn-outline-primary mt-3 col-md-8">Alterar Colaborador</button>
+                        <button type="submit" class="btn btn-outline-primary mt-3 col-md-8">Altera Empreendedor</button>
                         <a href="{{ route('colaboration') }}" class="btn btn-outline-primary mt-3 col-md-1">Voltar</a>
                     </div>
                 </form>

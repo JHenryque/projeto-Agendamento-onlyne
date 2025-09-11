@@ -1,0 +1,17 @@
+@media screen and (max-width: 991px) {
+    .asideRespon{
+        width: 0;
+    }
+}
+
+@media  screen and (max-width: 991px) {
+    .gap-3{
+        gap: 0 !important;
+    }
+}
+
+@media  screen and (max-width: 406px) {
+    .table, tr, td{
+        padding: 0 !important;
+    }
+}

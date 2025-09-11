@@ -29,14 +29,15 @@
            @if($users->count() === 0)
                <div class="text-center my-5 text-info">
                    <p class="display-6">Não existe Empreendedor</p>
-                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-primary">Cadastrar novo Empreendedor</a>
+                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-primary"><i class="fas fa-plus me-3 text-bg-dark p-1 rounded"></i> Empreendedor</a>
                </div>
 
            @else
-               <div class="my-5">
-                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-outline-primary ms-5">Cadastrar novo Empreendedor</a>
-               </div>
                <div class="col-lg-10 mb-5 table-responsive">
+
+               <div class="my-5 float-end">
+                   <a href="{{ route('empreendedor.create.empreendedores') }}" class="btn btn-outline-primary ms-5"><i class="fas fa-plus me-2 text-bg-dark p-1 rounded"></i> Empreendedor</a>
+               </div>
 
                    <table class="table table-hover">
                        <thead class="table-dark">

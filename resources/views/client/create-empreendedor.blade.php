@@ -133,9 +133,9 @@
                     </div>
 
             </div>
-                    <div class="d-flex flex-grow-1 gap-5">
-                        <button type="submit" class="btn btn-sm btn-outline-primary mt-4 mb-5">Novo Empreendedor</button>
-                        <a href="{{ route('empreendedor') }}" class="btn btn-sm btn-outline-dark mt-4 mb-5">Voltar!</a>
+                    <div class="d-flex flex-grow-1 justify-content-between">
+                        <button type="submit" class="btn btn-outline-primary mt-4 mb-5">Cadastrar Empreendedor</button>
+                        <a href="{{ route('empreendedor') }}" class="btn btn-outline-dark mt-4 mb-5">Voltar!</a>
                     </div>
                 </form>
         </div>

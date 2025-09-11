@@ -1,4 +1,4 @@
-<aside class="col-md-2 text-bg-dark" id="navbarNavd">
+<aside class="col-md-2 text-bg-dark asideRespon" id="navbarNavd">
     <div class="offcanvas-lg offcanvas-start text-bg-dark" tabindex="-1" id="atSidebar" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
 {{--            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>--}}
@@ -18,7 +18,7 @@
                     <a href="{{ route('empreendedor') }}" class="nav-link mt-4"><i class="fa-solid fa-chalkboard-user me-3"></i>Empreendedor</a>
                 @endcan
                 @can('empreendedor')
-                    <a href="#" class="nav-link mt-4"><i class="fa-solid fa-calendar me-3"></i>Atendimento</a>
+                    <a href="{{ route('empreendedor.create.atendimento') }}" class="nav-link mt-4"><i class="fa-solid fa-calendar me-3"></i>Atendimento</a>
                     <a href="#" class="nav-link mt-4"><i class="fa-solid fa-business-time me-3"></i>Horario</a>
                 @endcan
                 <a href="{{ route('user.profile') }}" class="nav-link mt-4"><i class="fa-solid fa-user-gear me-3"></i>Editar perfil</a>
