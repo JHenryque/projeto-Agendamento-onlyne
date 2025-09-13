@@ -42,6 +42,19 @@
                </form>
             </div>
 
+
+            @if($tipoAtendimentos->count() === 0)
+                <div>nao tem nada</div>
+            @else
+                <div class="row">
+                    <ul>
+                        @foreach($tipoAtendimentos as $tipoAtendimento)
+                            <li>{{ $tipoAtendimento->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
         </div>
     </div>
 </x-layout-app>

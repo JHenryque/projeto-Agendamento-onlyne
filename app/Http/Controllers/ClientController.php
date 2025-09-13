@@ -18,6 +18,10 @@ class ClientController extends Controller
 
     public function createAtendimento():view
     {
-        return view('companies.create-atendimento');
+        $tipoAtendimentos = Atendimento::latest()->take(10)->get();
+
+
+
+        return view('companies.create-atendimento', compact('tipoAtendimentos'));
     }
 }
