@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\EmpreendedorController;
+use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\UserController;
@@ -90,4 +91,7 @@ Route::middleware('auth')->group(function () {
 
     // servicos
     Route::get('/{logomarca}/{ref}', [ServicesController::class, 'index'])->name('services');
+
+    // planos
+    Route::get('/planos', [PlansController::class, 'index'])->name('planos');
 });
