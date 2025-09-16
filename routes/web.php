@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
     // home Empreendedor
     Route::get('/clients/home', [ClientController::class, 'homeEmpreendedor'])->name('empreendedor.home');
     Route::get('/clients/create/atendimento', [ClientController::class, 'createAtendimento'])->name('empreendedor.create.atendimento');
+    Route::post('/client/submit/atendimento', [ClientController::class, 'submitAtendimento'])->name('empreendedor.submit.atendimento');
 
 
     // servicos
