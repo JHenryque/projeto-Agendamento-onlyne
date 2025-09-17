@@ -26,9 +26,8 @@ return new class extends Migration
         });
 
         Schema::create('atendimento', function (Blueprint $table) {
+            $table->id()->autoIncrement();
             $table->foreignId('empreendedor_id')->index();
-            $table->foreignId('horarios_id')->index();
-            $table->string('token');
             $table->string('name');
             $table->string('preco');
             $table->timestamps();

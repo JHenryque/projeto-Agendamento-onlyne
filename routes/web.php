@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/clients/home', [ClientController::class, 'homeEmpreendedor'])->name('empreendedor.home');
     Route::get('/clients/create/atendimento', [ClientController::class, 'createAtendimento'])->name('empreendedor.create.atendimento');
     Route::post('/client/submit/atendimento', [ClientController::class, 'submitAtendimento'])->name('empreendedor.submit.atendimento');
+    Route::get('/client/edit/atendimento/{id}', [ClientController::class, 'editAtendimento'])->name('client.edit.atendimento');
+    Route::post('/client/update/atendimento', [ClientController::class, 'updateAtendimento'])->name('client.update.atendimento');
 
 
     // servicos
