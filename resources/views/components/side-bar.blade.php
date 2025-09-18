@@ -19,7 +19,7 @@
                 @endcan
                 @can('empreendedor')
                     <a href="{{ route('empreendedor.create.atendimento') }}" class="nav-link mt-4"><i class="fa-solid fa-calendar me-3"></i>Atendimento</a>
-                    <a href="#" class="nav-link mt-4"><i class="fa-solid fa-business-time me-3"></i>Horario</a>
+                    <a href="{{ route('client.create.horario') }}" class="nav-link mt-4"><i class="fa-solid fa-business-time me-3"></i>Horario</a>
                     <a href="{{ route('planos') }}" class="nav-link mt-4"><i class="fa-brands fa-font-awesome me-3"></i> Planos</a>
                 @endcan
                 <a href="{{ route('user.profile') }}" class="nav-link mt-4"><i class="fa-solid fa-user-gear me-3"></i>Editar perfil</a>

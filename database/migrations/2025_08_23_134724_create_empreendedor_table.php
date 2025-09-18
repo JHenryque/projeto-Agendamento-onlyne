@@ -36,8 +36,7 @@ return new class extends Migration
         Schema::create('horarios', function (Blueprint $table) {
             $table->foreignId('empreendedor_id')->index();
             $table->id();
-            $table->string('data_atendimento');
-            $table->string('hora_atendimento');
+            $table->time('hora_atendimento');
             $table->boolean('active');
             $table->string('nome', 50);
             $table->timestamps();

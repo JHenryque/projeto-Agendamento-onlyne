@@ -4,6 +4,12 @@
         <hr>
         <x-profile-client/>
         <hr>
+            @if(session('success'))
+                <div class="alert bg-success alert-dismissible text-center fade show" role="alert">
+                    <strong class="text-center">{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
         <div class="d-flex flex-wrap gap-4 justify-content-center align-items-center h-50">
             <div class="card p-4">
 
@@ -68,34 +74,7 @@
                                      </div>
                                     <div class="col-lg-2 d-flex flex-wrap align-self-center justify-content-end">
                                         <a href="{{ route('client.edit.atendimento', ['id' => $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></a>
-                                        <a href="{{ $tipoAtendimento->id }}" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="far fa-trash-alt"></i></a>
-
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Deletar Atendimento</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Tem certeza de que deseja excluir este colaborador?</p>
-
-
-                                                            <div class="text-center">
-                                                                <span><b>Nome:</b> {{ $tipoAtendimento->name }}</span>
-                                                                <span><b>Preço:</b> {{ $tipoAtendimento->preco }}</span>
-                                                            </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="d-flex flex-row justify-content-center gap-4">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                                                            <a href="" class="btn btn-sm btn-outline-danger">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <a href="{{ route('client.delete.atendimento', ['id'=> $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </td>
                             </tr>

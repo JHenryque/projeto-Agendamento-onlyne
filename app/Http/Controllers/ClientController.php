@@ -79,4 +79,19 @@ class ClientController extends Controller
 
         return redirect()->route('empreendedor.create.atendimento');
     }
+
+    public function deleteAtendimento($id):view
+    {
+        $aten = Atendimento::findOrFail($id);
+
+        return view('companies.delete-atendimento', compact('aten'));
+    }
+
+    public function destroyAtendimento($id)
+    {
+        $atendimento = Atendimento::findOrFail($id);
+        $atendimento->delete();
+
+        return redirect()->route('empreendedor.create.atendimento')->with('success', 'Atendimento removido com sucesso!');
+    }
 }

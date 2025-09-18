@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ColaboratorsController;
 use App\Http\Controllers\ConfirmAccountController;
 use App\Http\Controllers\EmpreendedorController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicesController;
@@ -86,10 +87,16 @@ Route::middleware('auth')->group(function () {
 
     // home Empreendedor
     Route::get('/clients/home', [ClientController::class, 'homeEmpreendedor'])->name('empreendedor.home');
+    // tipo atendimento
     Route::get('/clients/create/atendimento', [ClientController::class, 'createAtendimento'])->name('empreendedor.create.atendimento');
     Route::post('/client/submit/atendimento', [ClientController::class, 'submitAtendimento'])->name('empreendedor.submit.atendimento');
     Route::get('/client/edit/atendimento/{id}', [ClientController::class, 'editAtendimento'])->name('client.edit.atendimento');
     Route::post('/client/update/atendimento', [ClientController::class, 'updateAtendimento'])->name('client.update.atendimento');
+    Route::get('/client/deleted/{id}', [ClientController::class, 'deleteAtendimento'])->name('client.delete.atendimento');
+    Route::get('/client/destroy/{id}', [ClientController::class, 'destroyAtendimento'])->name('client.destroy.atendimento');
+
+    // horario
+    Route::get('/client/create/horario', [HorarioController::class, 'createHorario'])->name('client.create.horario');
 
 
     // servicos
