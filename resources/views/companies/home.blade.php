@@ -10,7 +10,7 @@
 
             <div class="col-md-7 mb-5 mt-2 rounded overflow-auto">
                 <div class="mb-3">
-                    <a class="btn btn-outline-primary float-sm-end mb-3" href="#"><i class="fas fa-calendar-plus me-2 text-dark"></i>Agendar</a>
+                    <a class="btn btn-outline-primary float-sm-end mb-3" href="{{ route('agendamentos.horarios.disponiveis') }}"><i class="fas fa-calendar-plus me-2 text-dark"></i>Agendar</a>
                 </div>
                 <table class="table table-hover mt-3 ps-3 table-responsive-sm">
                     <thead>
@@ -24,79 +24,39 @@
                     </thead>
 
                     <tbody style="height: 500px">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 07:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 08:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><br></br>3</th>
-                        <td class="d-flex justify-content-between flex-wrap">
-                            <div class="align-items-center pe-2">
-                                <br>
-                                <p><strong>Nome:</strong> Joao</p>
-                                <p><strong>telefone:</strong> 87 1234-5678</p>
-                            </div>
-                            <div class="block">
-                                <br>
-                                <p><strong>Tipo Agendamento:</strong> corte de cabelo e barba</p>
-                                <p><strong>Preço:</strong> $ 40,00</p>
-                            </div>
-                        </td>
-                        <td class="mb-5"><br><br><strong>Horario:</strong> 09:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 10:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 11:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 13:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 14:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><br></br>8</th>
-                        <td class="d-flex justify-content-between flex-wrap">
-                            <div class="align-items-center pe-2">
-                                <br>
-                                <p><strong>Nome:</strong> Joao</p>
-                                <p><strong>telefone:</strong> 87 99810-6866</p>
-                            </div>
-                            <div>
-                                <br>
-                                <p><strong>Tipo Agendamento:</strong> corte de cabelo</p>
-                                <p><strong>Preço:</strong> $ 25,00</p>
-                            </div>
-                        </td>
-                        <td class="mb-5"><br><br><strong>Horario:</strong> 15:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 16:00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td class="text-center text-warning"> -- disponivel --</td>
-                        <td><strong>Horario:</strong> 17:00</td>
-                    </tr>
+                        @foreach($horarios as $indx => $horario)
+{{--                            @if($horario->active)--}}
+                                <tr>
+                                    <th scope="row">{{ $indx + 1 }}</th>
+                                    <td class="text-center text-warning-emphasis col-md-12">
+                                        @if($horario->active)
+                                            -- <span class="text-success">Disponivel</span> --
+                                        @else
+                                            -- <span class="text-danger">Indisponivel</span> --
+                                        @endif
+                                    </td>
+                                    <td><strong>Horario:</strong> {{ $horario->times }}</td>
+                                </tr>
 
+{{--                            @else--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row"><br></br>{{ $indx + 1 }}</th>--}}
+{{--                                    <td class="d-flex justify-content-between flex-wrap">--}}
+{{--                                        <div class="align-items-center pe-2">--}}
+{{--                                            <br>--}}
+{{--                                            <p><strong>Nome:</strong> Joao</p>--}}
+{{--                                            <p><strong>telefone:</strong> 87 1234-5678</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="block">--}}
+{{--                                            <br>--}}
+{{--                                            <p><strong>Tipo Agendamento:</strong> corte de cabelo e barba</p>--}}
+{{--                                            <p><strong>Preço:</strong> $ 40,00</p>--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
+{{--                                    <td class="mb-5"><br><br><strong>Horario:</strong> 09:00</td>--}}
+{{--                                </tr>--}}
+{{--                            @endif--}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -54,7 +54,7 @@
                                     <td class="d-flex justify-content-between lh-sm">
                                         <div class="d-flex flex-wrap col-md-8 align-items-center justify-content-between">
                                            <div>{{ $horario->times }}</div>
-                                                @if($horario->active === 0)
+                                                @if($horario->active === 1)
                                                     <div class="text-success p-1 rounded"><i class="fa-solid fa-circle-check fs-5 me-2"></i> Disponivel--</div>
                                                 @else
                                                     <div class="text-danger p-1 rounded"><i class="fa-solid fa-circle-xmark fs-5 me-2"></i> Indisponivel</div>

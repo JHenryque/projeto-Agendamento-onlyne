@@ -23,10 +23,10 @@
                     </div>
 
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" name="active" role="switch" id="switchCheckDefault" @if($horario->active) checked @endif>
-                        <label class="form-check-label ms-3 @if($horario->active) text-danger @else text-success @endif" for="switchCheckDefault">{{ $horario->active ? 'Indisponível' : 'Disponivel' }}</label>
+                        <input class="form-check-input" type="checkbox" name="active" role="switch" id="switchCheckDefault" @if(!$horario->active) checked @endif>
+                        <label class="form-check-label ms-3 @if(!$horario->active) text-danger @else text-success @endif" for="switchCheckDefault">{{ $horario->active ? 'Disponivel' : 'Indisponível' }}</label>
                         <div id="validationInput" class="form-text">
-                            @if(!$horario->active)
+                            @if($horario->active)
                                 <b class="text-danger">atençao:</b> se essa opçao estiver ativada sera indisponível o horario
                             @endif
                         </div>

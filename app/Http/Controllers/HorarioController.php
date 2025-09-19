@@ -36,7 +36,7 @@ class HorarioController extends Controller
             $horario = new Horarios();
             $horario->empreendedor_id = Auth::user()->id;
             $horario->times = $request->get('times');
-            $horario->active = 0;
+            $horario->active = 1;
             $horario->save();
 
         }
@@ -65,7 +65,7 @@ class HorarioController extends Controller
 
             $horario = Horarios::where('id', $request->auth_id)->first();
             $horario->times = $request->input('times');
-            $horario->active = $request->input('active') === 'on' ? 1 : 0;
+            $horario->active = $request->input('active') === 'on' ? 0 : 1;
             $horario->save();
 
             return redirect()->route('client.create.horario')->with('success', 'Horario atualizado com sucesso!');

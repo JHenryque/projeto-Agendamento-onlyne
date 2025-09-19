@@ -4,17 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\Atendimento;
 use App\Models\Empreendedor;
+use App\Models\Horarios;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Ramsey\Collection\Collection;
 
 class ClientController extends Controller
 {
     // home empreendedor
     public function homeEmpreendedor():view
     {
+        // Buscar todos os agendamentos de hoje
+//        $hoje = Carbon::today()->toDateString();
+//        $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
 
-        return view('companies.home');
+        $idEmprendedor = Auth::id();
+
+        $horarios = Horarios::orderBy('times', 'asc')->latest()->where('empreendedor_id', $idEmprendedor)->get();
+
+
+        return view('companies.home', compact('horarios'));
     }
 
     public function createAtendimento():view

@@ -9,6 +9,7 @@ use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -102,6 +103,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/client/update/horario', [HorarioController::class, 'updateHorario'])->name('client.update.horario');
     Route::get('/client/deleted/{id}', [HorarioController::class, 'deleteHorario'])->name('client.delete.horario');
 
+    // agendamento para usuario
+    Route::get('/agendamentos/horarios-disponiveis', [UsuarioController::class, 'agendarUsuario'])->name('agendamentos.horarios.disponiveis');
 
     // servicos
     Route::get('/{logomarca}/{ref}', [ServicesController::class, 'index'])->name('services');
