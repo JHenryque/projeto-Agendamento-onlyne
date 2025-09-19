@@ -4,5 +4,76 @@
         <hr>
         <x-profile-client/>
         <hr>
+        @if(session('success'))
+            <div class="alert bg-success alert-dismissible text-center fade show" role="alert">
+                <strong class="text-center">{{ session('success') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        <div class="d-flex flex-wrap gap-4 justify-content-center align-items-center h-50">
+            <div class="card p-4 col-lg-3">
+
+                <form action="{{ route('client.submit.horario') }}" method="post">
+                    @csrf
+
+                    <div class="form-floating mb-3">
+                        <input type="time" step="2" name="times" class="form-control @error('times') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('times', date('00:00:00')) }}" aria-describedby="validationInput" style="font-size: 1.5rem;" autofocus>
+                        <label for="floatingInput">Horario: </label>
+                        <div id="validationInput" class="form-text text-danger">
+                            @error('times')
+                            {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="my-3">
+                        <button type="submit" class="btn btn-sm btn-primary">Salvar <i class="fas fa-plus ms-2 text-bg-light text-dark p-1 rounded"></i></button>
+                    </div>
+                </form>
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <span class="text-center">{{ session('error') }}</span>
+                    </div>
+                @endif
+            </div>
+
+            @if($horarios->count() === 0)
+                <div class="text-center"></div>
+            @else
+                <div class="col-lg-5 text-bg-secondary p-4 rounded">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="d-flex flex-wrap">Horarios:</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+
+                            @foreach($horarios as $horario)
+                                <tr>
+                                    <td class="d-flex justify-content-between lh-sm">
+                                        <div class="d-flex flex-wrap col-md-8 align-items-center justify-content-between">
+                                           <div>{{ $horario->times }}</div>
+                                                @if($horario->active === 0)
+                                                    <div class="text-success p-1 rounded"><i class="fa-solid fa-circle-check fs-5 me-2"></i> Disponivel--</div>
+                                                @else
+                                                    <div class="text-danger p-1 rounded"><i class="fa-solid fa-circle-xmark fs-5 me-2"></i> Indisponivel</div>
+                                                @endif
+
+                                        </div>
+                                        <div class="col-lg-2 d-flex flex-wrap align-self-center justify-content-end">
+                                            <a href="{{ route('client.edit.horario', ['id' => $horario->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ route('client.delete.horario', ['id'=> $horario->id]) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+
+        </div>
     </div>
 </x-layout-app>

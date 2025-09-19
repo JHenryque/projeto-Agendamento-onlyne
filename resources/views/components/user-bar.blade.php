@@ -1,19 +1,8 @@
 <nav class="navbar navbar-expand-lg text-bg-primary pe-4 ps-4">
         <div class="container-fluid ">
-{{--            <button--}}
-{{--                class="navbar-toggler"--}}
-{{--                type="button"--}}
-{{--                data-bs-toggle="collapse"--}}
-{{--                data-bs-target="#navbarNavd"--}}
-{{--                aria-controls="navbarNav"--}}
-{{--                aria-expanded="false"--}}
-{{--                aria-label="Toggle navigation"--}}
-{{--            >--}}
-{{--                <span class="navbar-toggler-icon"></span>--}}
-{{--            </button>--}}
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#atSidebar" aria-controls="bd Sidebar" aria-label="Toggle docs navegation"><span class="navbar-toggler-icon"></span></button>
 
-            <a class="navbar-brand" href="{{ route('home') }}">Agendamento-Onlyne</a>
+            <a class="navbar-brand text-light" href="{{ route('home') }}">-AGENDAMENTO-<b class="text-danger-emphasis fs-3">{{ auth()->user()->empreendedor->logomarca ?? 'ONLYNE' }}</b>-</a>
             <div class="d-flex justify-items-end align-items-center pe-4" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">

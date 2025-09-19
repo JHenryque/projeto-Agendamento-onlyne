@@ -17,9 +17,7 @@
                             <button type="button" class="btn btn-sm btn-outline-warning" onclick="window.history.back()">Não</button>
                             <a href="{{ route('client.destroy.atendimento', ['id'=> $aten->id]) }}" class="btn btn-sm btn-outline-danger">Sim</a>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

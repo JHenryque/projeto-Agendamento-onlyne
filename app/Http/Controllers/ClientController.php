@@ -80,7 +80,7 @@ class ClientController extends Controller
         return redirect()->route('empreendedor.create.atendimento');
     }
 
-    public function deleteAtendimento($id):view
+    public function deletedAtendimento($id)
     {
         $aten = Atendimento::findOrFail($id);
 

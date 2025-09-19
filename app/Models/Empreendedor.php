@@ -25,4 +25,9 @@ class Empreendedor extends Model
     {
         return $this->hasMany(Atendimento::class);
     }
+
+    public function horarios()
+    {
+        return $this->hasMany(Horarios::class);
+    }
 }

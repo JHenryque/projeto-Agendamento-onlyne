@@ -74,7 +74,7 @@
                                      </div>
                                     <div class="col-lg-2 d-flex flex-wrap align-self-center justify-content-end">
                                         <a href="{{ route('client.edit.atendimento', ['id' => $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></a>
-                                        <a href="{{ route('client.delete.atendimento', ['id'=> $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+                                        <a href="{{ route('client.deleted.atendimento', ['id'=> $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </td>
                             </tr>

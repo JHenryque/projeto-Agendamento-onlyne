@@ -92,11 +92,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/client/submit/atendimento', [ClientController::class, 'submitAtendimento'])->name('empreendedor.submit.atendimento');
     Route::get('/client/edit/atendimento/{id}', [ClientController::class, 'editAtendimento'])->name('client.edit.atendimento');
     Route::post('/client/update/atendimento', [ClientController::class, 'updateAtendimento'])->name('client.update.atendimento');
-    Route::get('/client/deleted/{id}', [ClientController::class, 'deleteAtendimento'])->name('client.delete.atendimento');
+    Route::get('/clients/deleted/{id}', [ClientController::class, 'deletedAtendimento'])->name('client.deleted.atendimento');
     Route::get('/client/destroy/{id}', [ClientController::class, 'destroyAtendimento'])->name('client.destroy.atendimento');
 
     // horario
     Route::get('/client/create/horario', [HorarioController::class, 'createHorario'])->name('client.create.horario');
+    Route::post('/client/submit/horario', [HorarioController::class, 'submitHorario'])->name('client.submit.horario');
+    Route::get('/client/edit/horario/{id}', [HorarioController::class, 'editHorario'])->name('client.edit.horario');
+    Route::post('/client/update/horario', [HorarioController::class, 'updateHorario'])->name('client.update.horario');
+    Route::get('/client/deleted/{id}', [HorarioController::class, 'deleteHorario'])->name('client.delete.horario');
 
 
     // servicos
