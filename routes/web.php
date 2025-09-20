@@ -104,7 +104,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/client/deleted/{id}', [HorarioController::class, 'deleteHorario'])->name('client.delete.horario');
 
     // agendamento para usuario
-    Route::get('/agendamentos/horarios-disponiveis', [UsuarioController::class, 'agendarUsuario'])->name('agendamentos.horarios.disponiveis');
+    Route::get('/agendamentos/horarios/disponiveis', [UsuarioController::class, 'agendarUsuario'])->name('agendamentos.horarios.disponiveis');
+    Route::post('/agendamentos/horarios', [UsuarioController::class, 'agendarHorario'])->name('agendamentos.submit.horarios');
 
     // servicos
     Route::get('/{logomarca}/{ref}', [ServicesController::class, 'index'])->name('services');

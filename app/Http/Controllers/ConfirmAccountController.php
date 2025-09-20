@@ -66,7 +66,7 @@ class ConfirmAccountController extends Controller
             'number_activation.size' => 'O campo de ativação é de números no maximo 6 caracteres.',
         ]);
 
-        $user = User::where('remember_token', $request->number_activation)->first();
+        $user = User::where('confirmation_code', $request->number_activation)->first();
 
         if ($user) {
             return redirect()->route('user.profile.altera.password');

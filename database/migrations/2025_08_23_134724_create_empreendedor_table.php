@@ -14,22 +14,22 @@ return new class extends Migration
         Schema::create('empreendedors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('colaborator_id');
             $table->string('logomarca', 150);
             $table->string('phone', 12);
             $table->string('address', 200);
-            $table->string('number',);
+            $table->string('number');
             $table->string('bairro', 100);
             $table->string('cidade', 45);
             $table->string('cep', 9);
             $table->timestamps();
         });
 
-        Schema::create('atendimento', function (Blueprint $table) {
+        Schema::create('atendimentos', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('empreendedor_id')->index();
             $table->string('name');
             $table->string('preco');
+            $table->text('observacao');
             $table->timestamps();
         });
 
@@ -38,7 +38,6 @@ return new class extends Migration
             $table->id();
             $table->time('times');
             $table->boolean('active');
-            $table->string('nome', 50);
             $table->timestamps();
         });
     }
@@ -49,7 +48,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('empreendedors');
-        Schema::dropIfExists('atendimento');
+        Schema::dropIfExists('atendimentos');
         Schema::dropIfExists('horarios');
     }
 };

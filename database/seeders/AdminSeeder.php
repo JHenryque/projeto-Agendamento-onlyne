@@ -15,8 +15,8 @@ class AdminSeeder extends Seeder
     {
         DB::table('users')->insert([
             'department_id' => 1,   // Administração
-            'name' => 'Henrique',
-            'email' => 'henrique@gmail.com',
+            'name' => 'José Henrique',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => bcrypt('Aa123456'),
             'role' => 'admin',
@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
 
         // --------- area endereço admin
 
-        DB::table('user_addresses')->insert([
+        DB::table('user_adresses')->insert([
             'user_id' => 1,
             'phone'=> '123456789',
             'address' => 'Rua do Administrador',

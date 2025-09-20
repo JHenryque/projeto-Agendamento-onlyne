@@ -55,17 +55,42 @@ class UsuarioController extends Controller
 //            return $horario->times;
 //        });
 
-        $horarios = Horarios::orderBy('times', 'asc')->where('empreendedor_id', $idEmprendedor)->get();
-
-
         $tipoAtendimentos = Atendimento::where('empreendedor_id', $idEmprendedor)->get();
 
+        $horarios = Horarios::where('empreendedor_id', $idEmprendedor)->Where('active', 1)->get();
 
 
         return view('agendar.agendar-usuario', [
-            'horarios' => $horarios,
             'atendimentos' => $tipoAtendimentos,
+            'horarios' => $horarios,
         ]);
+    }
+
+    public function agendarHorario(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'phone' => 'required|string|regex:/^(\(?\d{2}\)?\s?)?\d{4,5}-\d{4}$/',
+            'atendimento' => 'required|array',
+            'horario' => 'required',
+        ],['phone.regex' => 'O formato do campo de telefone é inválido, EX:(XX) XXXXX-XXXX.'
+        ]);
+
+        $agendamento = new Atendimento();
+        $agendamento->empreendedor_id = Auth::id();
+        $agendamento->name = $request->input('name');
+        $agendamento->phone = $request->input('phone');
+        $agendamento->tipo_atendimento = $request->input('["atendimento"]');
+        $agendamento->data = $request->input('data');
+        $agendamento->horario = $request->input('horario');
+        $agendamento->save();
+
+        $horario = Horarios::where('id', $request->input('horario'))->first();
+        $horario->active = 0;
+        $horario->save();
+
+        return redirect()->route('home')->with('success', 'Atendimento cadastrado com sucesso!');
+
     }
 
 

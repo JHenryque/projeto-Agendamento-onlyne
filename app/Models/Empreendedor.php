@@ -30,4 +30,9 @@ class Empreendedor extends Model
     {
         return $this->hasMany(Horarios::class);
     }
+
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class);
+    }
 }

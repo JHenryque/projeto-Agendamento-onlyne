@@ -1,69 +1,111 @@
 <x-layout-app title="Agendar Horario">
    <div class="container-fluid text-bg-light h-100">
-       <h3 class="text-primary">Agendar Horario</h3>
-       <hr>
        <x-profile-client />
        <hr>
        <div>
            <div class="container">
-               <h1>Novo Agendamento</h1>
+                   <h1 class="my-4">Novo Agendamento</h1>
 
                @if(session('erro'))
                    <div class="alert alert-danger">{{ session('erro') }}</div>
                @endif
 
-               <form action="#" method="post">
+               <form action="{{ route('agendamentos.horarios.disponiveis') }}" method="POST">
                    @csrf
-                   <div class="mb-3">
-                       <label>Nome</label>
-                       <input type="text" name="nome" class="form-control" required>
+                   <div class="form-floating mb-3">
+                       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('name') }}" aria-describedby="validationInput">
+                       <label for="floatingInput">Nome Completo: </label>
+                       <div id="validationInput" class="form-text text-danger">
+                           @error('name')
+                           {{ $message }}
+                           @enderror
+                       </div>
                    </div>
-                   <div class="mb-3">
-                       <label>Telefone</label>
-                       <input type="text" name="phone" class="form-control">
+
+                   <div class="form-floating mb-3">
+                       <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('phone') }}" aria-describedby="validationInput">
+                       <label for="floatingInput">Telefone: </label>
+                       <div id="validationInput" class="form-text text-danger">
+                           @error('phone')
+                           {{ $message }}
+                           @enderror
+                       </div>
                    </div>
-                   <div class="mb-3">
-                       <label>Data</label>
-                       <input type="date" name="data" id="data" class="form-control" value="{{ old('data', date('Y-m-d')) }}" required>
+
+                   <div class="form-floating mb-3">
+                       <input type="date" name="data" class="form-control @error('data') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('data', date('Y-m-d')) }}" required aria-describedby="validationInput">
+                       <label for="floatingInput">Data: </label>
+                       <div id="validationInput" class="form-text text-danger">
+                           @error('data')
+                           {{ $message }}
+                           @enderror
+                       </div>
                    </div>
 
                    <div class="mb-3">
-                       <label>Tipo de Atendimento</label>
-                       <select name="hora" id="hora" class="form-control" required>
-                           <option value="">Selecione uma o tipo atendimento</option>
+                       <label>Tipo de Atendimento:</label>
+                       <div class="d-flex flex-wrap mt-2 col-md-12">
                            @foreach($atendimentos as $atendimento)
-
-                                   <option class="d-flex flex-column" value="{{ $atendimento->id }}">
-                                       <p>Name: {{ $atendimento->name }}</p>
-                                       <p>Preço: {{ $atendimento->preco }}</p>
-                                       @if($atendimento->observacao)
-                                           <p>Observacao: {{ $atendimento->observacao }}</p>
-                                       @endif
-                                   </option>
-
+                               <div class="card p-2 mb-2 me-2">
+                                  <div class="d-flex flex-wrap align-items-center">
+                                      <div class="d-flex flex-column pe-4">
+                                          <span><b>Name:</b> {{ $atendimento->name }}</span>
+                                          <span><b>Preço:</b> {{ $atendimento->preco }}</span>
+                                          @if($atendimento->observacao)
+                                              <p><b>Observacao:</b> {{ $atendimento->observacao }}</p>
+                                          @endif
+                                      </div>
+                                      <div>
+                                          <div class="form-check form-switch">
+                                              <input class="form-check-input my-2" type="checkbox" name="atendimento[]" role="switch" id="validationInput" value="{{ $atendimento->id }}">
+                                          </div>
+                                      </div>
+                                  </div>
+                               </div>
                            @endforeach
-                       </select>
+                       </div>
+                       <div id="validationInput" class="form-text text-danger">
+                           @error('atendimento')
+                           {{ $message }}
+                           @enderror
+                       </div>
                    </div>
 
                    <div class="mb-3">
-                       <label>Horário</label>
-                       <select name="hora" id="hora" class="form-control" required>
-                           <option value="">Selecione uma data primeiro</option>
-                              @foreach($horarios as $horario)
-                                   @if($horario->active)
-                                     <option value="{{ $horario->id }}">{{ $horario->times }}</option>
-                                    @else
-                                        <option class="text-center">Nenhum horário disponível</option>
-                                       @break
-                                   @endif
-                              @endforeach
-                       </select>
+                       <label>Horário:</label>
+                       <div class="d-flex flex-wrap mt-2">
+                           @if($horarios->count())
+                               @foreach($horarios as $horario)
+
+                                       <div class="card p-2 mb-2 me-2">
+                                           <div class="d-flex flex-wrap align-items-center">
+                                               <div class="d-flex flex-column pe-4">
+                                                   <span><b>{{ $horario->times }}</b></span>
+                                               </div>
+                                               <div>
+                                                   <div class="form-check">
+                                                       <input class="form-check-input" type="radio" name="horario" id="exampleRadios2" value="{{ $horario->id }}">
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+
+                               @endforeach
+                           @else
+                               <div class="form-text text-center">Nenhum horário disponível</div>
+                           @endif
+                       </div>
+                       <div id="validationInput" class="form-text text-danger">
+                           @error('horario')
+                           {{ $message }}
+                           @enderror
+                       </div>
                    </div>
-                   <div class="mb-3">
-                       <label>Observação</label>
-                       <textarea name="observacao" class="form-control"></textarea>
+                   <div class="d-flex flex-wrap justify-content-between mt-5 mb-5">
+                       <button type="submit" class="btn btn-success">Agendar</button>
+                       <a href="{{ route('home') }}" class="btn btn-outline-dark ">Voltar!</a>
                    </div>
-                   <button type="submit" class="btn btn-success">Agendar</button>
+
                </form>
            </div>
 

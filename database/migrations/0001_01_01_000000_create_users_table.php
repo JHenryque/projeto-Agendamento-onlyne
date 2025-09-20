@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('department_id')->nullable()->index();
+            $table->foreignId('col_id')->nullable()->index();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('cpf_cnpj', 14)->nullable();
+            $table->string('cpf_cnpj', )->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 200)->nullable();
             $table->string('role', 50)->nullable();
