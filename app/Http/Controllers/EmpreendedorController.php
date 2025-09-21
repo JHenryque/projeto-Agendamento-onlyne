@@ -21,8 +21,6 @@ class EmpreendedorController extends Controller
 
         $users = User::withTrashed()->with('empreendedor')->where('role', 'empreendedor')->get();
 
-
-
         $cols = User::where('role', 'admin')->OrWhere('role', 'colaborator')->get();
 
         return view('client.empreendedor', compact('users', 'cols'));
@@ -61,7 +59,6 @@ class EmpreendedorController extends Controller
             'email.unique' => 'O e-mail já foi recebido.',
         ]);
 
-
         // create user confirmation token
         $token = Str::random(60);
 
@@ -76,7 +73,6 @@ class EmpreendedorController extends Controller
         $user->permissions = '["empreendedor"]';
         $user->department_id = $request->select_department;
         $user->save();
-
 
         $user->empreendedor()->create([
             'logomarca' => $request->logomarca,

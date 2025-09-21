@@ -105,11 +105,17 @@ Route::middleware('auth')->group(function () {
 
     // agendamento para usuario
     Route::get('/agendamentos/horarios/disponiveis', [UsuarioController::class, 'agendarUsuario'])->name('agendamentos.horarios.disponiveis');
-    Route::post('/agendamentos/horarios', [UsuarioController::class, 'agendarHorario'])->name('agendamentos.submit.horarios');
+    Route::post('/agendamentos/submit/horarios', [UsuarioController::class, 'agendarHorario'])->name('agendamentos.submit.horarios');
 
     // servicos
     Route::get('/{logomarca}/{ref}', [ServicesController::class, 'index'])->name('services');
 
     // planos
     Route::get('/planos', [PlansController::class, 'index'])->name('planos');
+
+//    //
+//    Route::fallback(function () {
+//       echo 'nao existe';
+//    });
+
 });

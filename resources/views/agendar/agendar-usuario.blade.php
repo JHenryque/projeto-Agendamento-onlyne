@@ -10,7 +10,7 @@
                    <div class="alert alert-danger">{{ session('erro') }}</div>
                @endif
 
-               <form action="{{ route('agendamentos.horarios.disponiveis') }}" method="POST">
+               <form action="{{ route('agendamentos.submit.horarios') }}" method="POST">
                    @csrf
                    <div class="form-floating mb-3">
                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('name') }}" aria-describedby="validationInput">
@@ -84,7 +84,7 @@
                                                </div>
                                                <div>
                                                    <div class="form-check">
-                                                       <input class="form-check-input" type="radio" name="horario" id="exampleRadios2" value="{{ $horario->id }}">
+                                                       <input class="form-check-input" type="radio" name="horario" id="exampleRadios2" value="{{ $horario->times }}">
                                                    </div>
                                                </div>
                                            </div>

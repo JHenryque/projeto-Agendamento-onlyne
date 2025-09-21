@@ -1,17 +1,16 @@
 <x-layout-app title="Home">
-    <div class="container-fluid text-bg-light">
+    <div class="container-fluid text-bg-light h-100">
         <div class="row p-1">
-            <h3 class="text-primary">Home</h3>
-            <hr>
             <x-profile-user/>
-            <hr>
+            <hr class="mt-3">
         </div>
 
-        <div class="row col-lg-12 justify-content-center">
+        <div class="row col-lg-12 justify-content-center my-3">
 
 
             <div class="col-lg-10 mb-5 table-responsive">
 
+                @if($idCol)
                 <table class="table table-hover">
                     <thead class="table-dark">
                     <tr>
@@ -49,6 +48,9 @@
                     </tbody>
 
                 </table>
+                @else
+                    <p class="text-dark-emphasis text-center fs-3 my-3">Ainda vc nao cadastrador empreendedor</p>
+                @endif
             </div>
 
         </div>

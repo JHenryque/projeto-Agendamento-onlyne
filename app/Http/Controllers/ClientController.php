@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agendamento;
 use App\Models\Atendimento;
 use App\Models\Empreendedor;
 use App\Models\Horarios;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Ramsey\Collection\Collection;
@@ -17,15 +19,33 @@ class ClientController extends Controller
     public function homeEmpreendedor():view
     {
         // Buscar todos os agendamentos de hoje
-//        $hoje = Carbon::today()->toDateString();
-//        $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
+        $hoje = Carbon::today()->toDateString();
+        $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
+
+
+//        echo '<pre>';
+//        var_dump($agendamentosHoje->toArray());
+//
+//        exit();
 
         $idEmprendedor = Auth::id();
+
+        $idAten = null;
+        foreach ($agendamentosHoje as $agendamento) {
+            $idAten = json_decode($agendamento->tipo_atendimento);
+            $i = $index;
+        }
+
+        $tipoAten = Agendamento::where('id', $idAten[$i])->first();
+
+        dd($tipoAten);
+
 
         $horarios = Horarios::orderBy('times', 'asc')->latest()->where('empreendedor_id', $idEmprendedor)->get();
 
 
-        return view('companies.home', compact('horarios'));
+
+        return view('companies.home', compact('horarios', 'agendamentosHoje'));
     }
 
     public function createAtendimento():view

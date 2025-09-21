@@ -18,45 +18,61 @@
                         <th scope="col">#</th>
                         <th scope="col" class="text-center" style="font-size: 1.3rem;">Atendimento</th>
                         <th scope="col">
-                            <input type="date" name="data" value="{{ old('data', date('Y-m-d')) }}" style="border: 0;outline: 0;font-size: 1.3rem;">
+                            <input type="date" name="data" value="{{ old('data', date('Y-m-d')) ?? $agendamentosHoje }}" style="border: 0;outline: 0;font-size: 1.3rem;">
                         </th>
                     </tr>
                     </thead>
 
                     <tbody style="height: 500px">
+                    @if($agendamentosHoje->count())
                         @foreach($horarios as $indx => $horario)
-{{--                            @if($horario->active)--}}
-                                <tr>
-                                    <th scope="row">{{ $indx + 1 }}</th>
-                                    <td class="text-center text-warning-emphasis col-md-12">
-                                        @if($horario->active)
-                                            -- <span class="text-success">Disponivel</span> --
-                                        @else
-                                            -- <span class="text-danger">Indisponivel</span> --
-                                        @endif
-                                    </td>
-                                    <td><strong>Horario:</strong> {{ $horario->times }}</td>
-                                </tr>
+                            @foreach($agendamentosHoje as $agHoje)
+                                    @if($horario->times === $agHoje->id_horario)
+                                        <tr>
+                                            <th scope="row"><br></br>{{ $indx + 1 }}</th>
+                                            <td class=" justify-content-between flex-wrap">
+                                                <div class="align-items-center pe-2">
+                                                    <p><strong>Nome:</strong> {{ $agHoje->name }}</p>
+                                                    <p><strong>telefone:</strong> {{ $agHoje->phone }}</p>
+                                                </div>
+                                                <div class="block">
+                                                    <p><strong>Tipo Agendamento:</strong> corte de cabelo e barba</p>
+                                                    <p><strong>Preço:</strong> $ 40,00</p>
+                                                </div>
+                                            </td>
+                                            <td class="mb-5"><br><br><strong>Horario:</strong> {{ $horario->times }}</td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <th scope="row">{{ $indx + 1 }}</th>
+                                            <td class="text-center text-warning-emphasis col-md-12">
+                                                @if($horario->active)
+                                                    -- <span class="text-success">Disponivel</span> --
+                                                @else
+                                                    -- <span class="text-danger">Indisponivel</span> --
+                                                @endif
+                                            </td>
+                                            <td><strong>Horario:</strong> {{ $horario->times }}</td>
+                                        </tr>
+                                    @endif
+                            @endforeach
 
-{{--                            @else--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row"><br></br>{{ $indx + 1 }}</th>--}}
-{{--                                    <td class="d-flex justify-content-between flex-wrap">--}}
-{{--                                        <div class="align-items-center pe-2">--}}
-{{--                                            <br>--}}
-{{--                                            <p><strong>Nome:</strong> Joao</p>--}}
-{{--                                            <p><strong>telefone:</strong> 87 1234-5678</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="block">--}}
-{{--                                            <br>--}}
-{{--                                            <p><strong>Tipo Agendamento:</strong> corte de cabelo e barba</p>--}}
-{{--                                            <p><strong>Preço:</strong> $ 40,00</p>--}}
-{{--                                        </div>--}}
-{{--                                    </td>--}}
-{{--                                    <td class="mb-5"><br><br><strong>Horario:</strong> 09:00</td>--}}
-{{--                                </tr>--}}
-{{--                            @endif--}}
                         @endforeach
+                                @else
+                                    @foreach($horarios as $indx => $horario)
+                                        <tr>
+                                            <th scope="row">{{ $indx + 1 }}</th>
+                                            <td class="text-center text-warning-emphasis col-md-12">
+                                                @if($horario->active)
+                                                    -- <span class="text-success">Disponivel</span> --
+                                                @else
+                                                    -- <span class="text-danger">Indisponivel</span> --
+                                                @endif
+                                            </td>
+                                            <td><strong>Horario:</strong> {{ $horario->times }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                     </tbody>
                 </table>
             </div>

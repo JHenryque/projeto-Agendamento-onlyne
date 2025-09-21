@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('tipo_atendimento');
             $table->date('data');
-            $table->time('horario');
+            $table->string('id_horario');
             $table->timestamps();
         });
     }

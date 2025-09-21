@@ -22,16 +22,20 @@ class ColaboratorsController extends Controller
 
         $colaborators = User::withTrashed()->with('adresses')->where('role', 'colaborator')->get();
 
+
         return view('colaboration.colaborators', compact('colaborators'));
     }
 
     public function homeColaborators(): View
     {
+        Auth::user()->can('colaborator') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
         $colaborators = User::withTrashed()->with('empreendedor')->where('role', 'empreendedor')->get();
 
+        $idCol = User::where('col_id', auth()->id())->first();
 
-        return view('colaboration.home', compact('colaborators'));
+
+        return view('colaboration.home', compact('colaborators', 'idCol'));
     }
 
     public function createColaborator(): View

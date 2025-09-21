@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agendamento;
 use App\Models\Atendimento;
 use App\Models\Empreendedor;
 use App\Models\Horarios;
@@ -68,24 +69,30 @@ class UsuarioController extends Controller
 
     public function agendarHorario(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string',
-            'phone' => 'required|string|regex:/^(\(?\d{2}\)?\s?)?\d{4,5}-\d{4}$/',
+            'phone' => 'required|string|regex:/^(\(?\d{2}\)?\s?)?\d{4,5}-\d{4}$/|unique:Agendamentos,phone',
             'atendimento' => 'required|array',
             'horario' => 'required',
-        ],['phone.regex' => 'O formato do campo de telefone é inválido, EX:(XX) XXXXX-XXXX.'
+        ],[
+            'phone.regex' => 'O formato do campo de telefone é inválido, EX:(XX) XXXXX-XXXX.',
+            'phone.unique' => 'Ja existe um agendamento com esse telefone.',
         ]);
 
-        $agendamento = new Atendimento();
+
+
+        $agendamento = new Agendamento();
         $agendamento->empreendedor_id = Auth::id();
         $agendamento->name = $request->input('name');
         $agendamento->phone = $request->input('phone');
-        $agendamento->tipo_atendimento = $request->input('["atendimento"]');
-        $agendamento->data = $request->input('data');
-        $agendamento->horario = $request->input('horario');
+        $agendamento->tipo_atendimento = $request->atendimento;
+        $agendamento->data = $request->date('data');
+        $agendamento->id_horario = $request->horario;
         $agendamento->save();
 
-        $horario = Horarios::where('id', $request->input('horario'))->first();
+
+        $horario = Horarios::where('times', $request->input('horario'))->first();
         $horario->active = 0;
         $horario->save();
 

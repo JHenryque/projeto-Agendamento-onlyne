@@ -44,7 +44,7 @@
                    </div>
 
                   <div class="my-3">
-                      <button type="submit" class="btn btn-sm btn-primary">Salvar <i class="fas fa-plus ms-2 text-bg-light text-dark p-1 rounded"></i></button>
+                      <button type="submit" class="btn btn-sm btn-success">Salvar <i class="fas fa-plus ms-2 text-bg-primary p-1 rounded"></i></button>
                   </div>
                </form>
             </div>
@@ -73,8 +73,26 @@
                                          @endif
                                      </div>
                                     <div class="col-lg-2 d-flex flex-wrap align-self-center justify-content-end">
-                                        <a href="{{ route('client.edit.atendimento', ['id' => $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('client.edit.atendimento', ['id' => $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit"></i></a>
                                         <a href="{{ route('client.deleted.atendimento', ['id'=> $tipoAtendimento->id]) }}" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ...
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Understood</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
