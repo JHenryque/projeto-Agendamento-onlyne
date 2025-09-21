@@ -1,7 +1,10 @@
 <x-layout-app title="Alterar a Senha">
-    <div class="container-fluid" style="min-height: 800px;">
-        <div class="col-6 p-4 align-self-center h-100">
-            <div class="card p-4">
+    <div class="container-fluid text-bg-light h-100" >
+            <x-profile-user/>
+            <hr>
+        <div class="container col-md-6">
+             <h1 class="py-5 text-primary-emphasis"><b><i class="fa-solid fa-envelopes-bulk me-3 text-warning"></i></b> Alterar Senha</h1>
+            <div class="card p-4 mt-lg-5">
 
                 <div class="row align-content-center justify-items-center">
                         <p>Para Alterar a sua senha, irá receber um email com um link para Alteração da senha.</p>
@@ -16,8 +19,8 @@
                                 @enderror
                             </div>
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                <button class="btn btn-primary mt-4">Enviar</button>
-                                <a href="{{ route('home') }} " class="btn btn-primary mt-4">Volta para Home</a>
+                                <button class="btn btn-success mt-4">Enviar</button>
+                                <a href="{{ route('home') }} " class="btn btn-outline-primary mt-4">voltar!</a>
                             </div>
                         </form>
                     @if(session('success'))

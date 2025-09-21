@@ -57,12 +57,12 @@ class ProfileController extends Controller
        return redirect()->back()->with('success', 'Dados atualizados com sucesso! ;)');
     }
 
-    // pagina html input email
+    // interface para altera a senha
     public function editePassword() {
         return view('user.edite-password');
     }
 
-    // post update email
+    // Password update confirmation codigo, sera criado um codigo gerado alternado
     public function updatePassword(Request $request) {
 
         $request->validate([
@@ -78,14 +78,11 @@ class ProfileController extends Controller
         //$token = Str::random(60);
 
         $user = User::findOrFail($request->user()->id);
-        $user->remember_token = $numero;
+        $user->confirmation_code = $numero;
         $user->save();
 
         if($user)
         {
-            //redirect()->route('user.profile.password')->with('success', 'verifique o seu email');
-
-            // Mail::to($request->user())->send(new ConfirmAccountEmail(route('altera.password', $token)));
             Mail::to($request->user())->send(new ConfirmAccountEmail($numero));
         }
 
@@ -93,23 +90,15 @@ class ProfileController extends Controller
         return redirect()->route('user.profile.codigo-active');
     }
 
-    // pagina html input password
-    public function alteraPassword():View
-    {
-        $user = Auth::user();
-
-        return view('user.altera-password', compact('user'));
-    }
-
-    // um post auteraçao do password
+    // alteraçao da senha pelo usuario confirmaçao do codigo
     public function updatePasswordConfirm(Request $request) {
         // form validation
 
         $request->validate([
-            'password' => 'required|min:8|confirmed|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z0-9]+$/',
-            'password_confirmation' => 'required',
+            'password' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z0-9]+$/',
+            'password_confirmation' => 'required|same:password',
         ],[
-            'password.confirmed' => 'A confirmação do campo de senha não corresponde.',
+            'password_confirmation.same' => 'A confirmação do campo de senha não corresponde.',
             'password.regex' => 'O formato do campo de senha é inválido',
             'password.min' => 'A senha deve ter pelo menos :min caracteres.',
             'password.max' => 'A senha deve ter pelo menos :max caracteres.',
@@ -119,8 +108,8 @@ class ProfileController extends Controller
         //$numero = (int) implode('', collect(range(1, 6))->map(fn() => rand(0, 9))->toArray());
 
         $user = User::findOrFail($request->user()->id);
-        $user->remember_token = null;
-        $user->password = Crypt::encryptString($request->password);
+        $user->confirmation_code = null;
+        $user->password = bcrypt($request->password);
         $user->updated_at = Carbon::now();
         $user->save();
 
@@ -132,6 +121,14 @@ class ProfileController extends Controller
     public function codigoActive():View
     {
         return view('user.active-codigo');
+    }
+
+    // interface alteraçao pelo codigo
+    public function alteraPassword():View
+    {
+        $user = Auth::user();
+
+        return view('user.altera-password', compact('user'));
     }
 
 }

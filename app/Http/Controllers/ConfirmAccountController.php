@@ -55,10 +55,11 @@ class ConfirmAccountController extends Controller
     }
 
 
+    // alteraçao de senha e liberado por codigo de ativaçao
     public function updateCodigoActive(Request $request) {
 
         $request->validate([
-            'number_activation' => 'required|string|size:6',
+            'number_activation' => 'required|string|size:6|min:5|max:7',
         ],
         [
             'number_activation.min' => 'O campo de ativação do número deve ter pelo menos 6 caracteres.',
