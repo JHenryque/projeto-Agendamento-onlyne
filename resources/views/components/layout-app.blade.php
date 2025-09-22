@@ -18,6 +18,12 @@
 
 <body>
 
+    @php
+        $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+    @endphp
+
+
+    @if($pdo->beginTransaction())
 
         <x-user-bar />
         <div class="d-flex gap-3" style="min-height: 860px;">
@@ -27,6 +33,19 @@
             </div>
         </div>
 
+
+    @else
+        <div class="container w-100 vh-100 align-content-center">
+            <div class="row justify-content-center text-bg-light rounded align-content-center" style="height: 800px">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="d-flex justify-content-center my-5">
+                    Não foi possível conectar ao banco ❌
+                </div>
+            </div>
+        </div>
+    @endif
 
 <!-- resources -->
 <script src="{{ asset('assets/datatables/jquery.min.js') }}"></script>

@@ -9,6 +9,8 @@
         <div class="d-flex justify-content-around flex-wrap-reverse gap-3 card-body">
 
             <div class="col-md-7 mb-5 mt-2 rounded overflow-auto">
+
+                @if($horarioIsTrue)
                 <div class="mb-3">
                     <a class="btn btn-outline-primary float-sm-end mb-3" href="{{ route('agendamentos.horarios.disponiveis') }}"><i class="fas fa-calendar-plus me-2 text-dark"></i>Agendar</a>
                 </div>
@@ -29,30 +31,35 @@
                             @foreach($agendamentosHoje as $agHoje)
                                     @if($horario->times === $agHoje->id_horario)
                                         <tr>
-                                            <th scope="row"><br></br>{{ $indx + 1 }}</th>
-                                            <td class=" justify-content-between flex-wrap">
-                                                <div class="align-items-center pe-2">
-                                                    <p><strong>Nome:</strong> {{ $agHoje->name }}</p>
-                                                    <p><strong>telefone:</strong> {{ $agHoje->phone }}</p>
-                                                </div>
-                                                <div class="block">
-                                                    <p><strong>Tipo Agendamento:</strong> corte de cabelo e barba</p>
-                                                    <p><strong>Preço:</strong> $ 40,00</p>
-                                                </div>
-                                            </td>
-                                            <td class="mb-5"><br><br><strong>Horario:</strong> {{ $horario->times }}</td>
+                                            <th scope="row"><br>{{ $indx + 1 }}</th>
+                                                <td style="height: 2rem;">
+                                                    <div class="d-flex justify-content-between flex-wrap">
+                                                    <div>
+                                                        <span><strong>Nome:</strong> {{ $agHoje->name }}</span>
+                                                        <p><strong>telefone:</strong> {{ $agHoje->phone }}</p>
+                                                    </div>
+                                                    <div>
+                                                        <span><strong>Tipo Agendamento:</strong> corte de cabelo e barba</span>
+                                                        <p><strong>Preço:</strong> R$40,00</p>
+                                                    </div>
+                                                    </div>
+                                                </td>
+                                            <td> <br><strong>Horario:</strong> {{ $horario->times }}</td>
                                         </tr>
                                     @else
                                         <tr>
-                                            <th scope="row">{{ $indx + 1 }}</th>
-                                            <td class="text-center text-warning-emphasis col-md-12">
-                                                @if($horario->active)
-                                                    -- <span class="text-success">Disponivel</span> --
-                                                @else
-                                                    -- <span class="text-danger">Indisponivel</span> --
-                                                @endif
+                                            <th scope="row"><br>{{ $indx + 1 }}</th>
+                                            <td>
+                                                <div class="text-center text-warning-emphasis col-md-12">
+                                                    <br>
+                                                    @if($horario->active)
+                                                        -- <span class="text-success">Disponivel</span> --
+                                                    @else
+                                                        -- <span class="text-danger">Indisponivel</span> --
+                                                    @endif
+                                                </div>
                                             </td>
-                                            <td><strong>Horario:</strong> {{ $horario->times }}</td>
+                                            <td><br><strong>Horario:</strong> {{ $horario->times }}</td>
                                         </tr>
                                     @endif
                             @endforeach
@@ -75,6 +82,9 @@
                                 @endif
                     </tbody>
                 </table>
+                @else
+                    <div class="form-text fs-2 text-center mt-4">Ainda não exister horarios adicionados</div>
+                @endif
             </div>
 
             <div class="col-md-4 mb-5 mt-2 rounded border border-4 text-bg-secondary card-body ">

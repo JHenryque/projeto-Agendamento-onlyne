@@ -22,6 +22,10 @@ class ClientController extends Controller
         $hoje = Carbon::today()->toDateString();
         $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
 
+        $agendamentosHoje->searchable();
+
+        dd($agendamentosHoje);
+
 
 //        echo '<pre>';
 //        var_dump($agendamentosHoje->toArray());
@@ -30,22 +34,11 @@ class ClientController extends Controller
 
         $idEmprendedor = Auth::id();
 
-        $idAten = null;
-        foreach ($agendamentosHoje as $agendamento) {
-            $idAten = json_decode($agendamento->tipo_atendimento);
-            $i = $index;
-        }
-
-        $tipoAten = Agendamento::where('id', $idAten[$i])->first();
-
-        dd($tipoAten);
-
-
         $horarios = Horarios::orderBy('times', 'asc')->latest()->where('empreendedor_id', $idEmprendedor)->get();
 
+        $horarioIsTrue = Horarios::where('empreendedor_id', $idEmprendedor)->exists();
 
-
-        return view('companies.home', compact('horarios', 'agendamentosHoje'));
+        return view('companies.home', compact('horarios', 'agendamentosHoje', 'horarioIsTrue'));
     }
 
     public function createAtendimento():view

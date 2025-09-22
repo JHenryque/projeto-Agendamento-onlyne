@@ -18,11 +18,13 @@ Route::middleware('guest')->group(function () {
     Route::post('confirm-account', [ConfirmAccountController::class, 'confirmAccountSubmit'])->name('confirm-account.submit');
 });
 
+
 Route::middleware('auth')->group(function () {
 
+    // so locoloca apenas uma barra sera direcionado para home
     Route::redirect('/', '/home');
+    // verificaçao de autenticaçao admin e outro, a pagina home para todos
     Route::get('/home', function () {
-
         if (auth()->user()->role === 'admin') {
             // pagina home admin
             return redirect()->route('admin.home');
@@ -112,10 +114,5 @@ Route::middleware('auth')->group(function () {
 
     // planos
     Route::get('/planos', [PlansController::class, 'index'])->name('planos');
-
-//    //
-//    Route::fallback(function () {
-//       echo 'nao existe';
-//    });
 
 });

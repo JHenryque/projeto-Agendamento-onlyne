@@ -73,7 +73,7 @@ class UsuarioController extends Controller
         $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string|regex:/^(\(?\d{2}\)?\s?)?\d{4,5}-\d{4}$/|unique:Agendamentos,phone',
-            'atendimento' => 'required|array',
+            'atendimento' => 'required',
             'horario' => 'required',
         ],[
             'phone.regex' => 'O formato do campo de telefone é inválido, EX:(XX) XXXXX-XXXX.',

@@ -2,7 +2,9 @@
    <div class="container-fluid text-bg-light h-100">
        <x-profile-client />
        <hr>
+
        <div>
+       @if($horarios)sim @else nao @endif
            <div class="container">
                    <h1 class="my-4">Novo Agendamento</h1>
 
@@ -44,26 +46,22 @@
 
                    <div class="mb-3">
                        <label>Tipo de Atendimento:</label>
-                       <div class="d-flex flex-wrap mt-2 col-md-12">
+                       <div class="d-flex flex-wrap mt-2 col-md-12" id="validationInput">
                            @foreach($atendimentos as $atendimento)
-                               <div class="card p-2 mb-2 me-2">
-                                  <div class="d-flex flex-wrap align-items-center">
-                                      <div class="d-flex flex-column pe-4">
-                                          <span><b>Name:</b> {{ $atendimento->name }}</span>
-                                          <span><b>Preço:</b> {{ $atendimento->preco }}</span>
-                                          @if($atendimento->observacao)
-                                              <p><b>Observacao:</b> {{ $atendimento->observacao }}</p>
-                                          @endif
-                                      </div>
-                                      <div>
-                                          <div class="form-check form-switch">
-                                              <input class="form-check-input my-2" type="checkbox" name="atendimento[]" role="switch" id="validationInput" value="{{ $atendimento->id }}">
-                                          </div>
-                                      </div>
-                                  </div>
+                               <div class="card p-2 me-3 mb-3">
+                                   <div class="form-check">
+                                       <input class="form-check-input me-3" type="radio" name="atendimento" id="radioDefault{{ $atendimento->id }}" value="{{ $atendimento->id }}">
+                                       <label class="form-check-label" for="radioDefault{{ $atendimento->id }}">
+                                          <b>{{ $atendimento->name }}</b> <br> R${{ $atendimento->preco }} reais
+                                           @if($atendimento->observacao)
+                                               | {{ $atendimento->observacao }}
+                                           @endif
+                                       </label>
+                                   </div>
                                </div>
                            @endforeach
                        </div>
+
                        <div id="validationInput" class="form-text text-danger">
                            @error('atendimento')
                            {{ $message }}
@@ -78,16 +76,14 @@
                                @foreach($horarios as $horario)
 
                                        <div class="card p-2 mb-2 me-2">
-                                           <div class="d-flex flex-wrap align-items-center">
-                                               <div class="d-flex flex-column pe-4">
-                                                   <span><b>{{ $horario->times }}</b></span>
-                                               </div>
                                                <div>
                                                    <div class="form-check">
-                                                       <input class="form-check-input" type="radio" name="horario" id="exampleRadios2" value="{{ $horario->times }}">
+                                                       <input class="form-check-input" type="radio" name="horario" id="horario{{ $horario->id }}" value="{{ $horario->times }}">
+                                                       <label class="form-check-label" for="horario{{ $horario->id }}">
+                                                           <b>{{ $horario->times }}</b>
+                                                       </label>
                                                    </div>
                                                </div>
-                                           </div>
                                        </div>
 
                                @endforeach

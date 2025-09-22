@@ -11,54 +11,55 @@
             </div>
         @endif
         <div class="d-flex flex-wrap gap-4 justify-content-center align-items-center h-50">
-            <div class="card p-4 col-lg-3">
 
-                <form action="{{ route('client.submit.horario') }}" method="post">
-                    @csrf
+                <div class="card p-4 col-lg-3">
 
-                    <div class="form-floating mb-3">
-                        <input type="time" step="2" name="times" class="form-control @error('times') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('times', date('00:00:00')) }}" aria-describedby="validationInput" style="font-size: 1.5rem;" autofocus>
-                        <label for="floatingInput">Horario: </label>
-                        <div id="validationInput" class="form-text text-danger">
-                            @error('times')
-                            {{ $message }}
-                            @enderror
+                    <form action="{{ route('client.submit.horario') }}" method="post">
+                        @csrf
+
+                        <div class="form-floating mb-3">
+                            <input type="time" step="2" name="times" class="form-control @error('times') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('times', date('00:00:00')) }}" aria-describedby="validationInput" style="font-size: 1.5rem;" autofocus>
+                            <label for="floatingInput">Horario: </label>
+                            <div id="validationInput" class="form-text text-danger">
+                                @error('times')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="my-3">
-                        <button type="submit" class="btn btn-sm btn-primary">Salvar <i class="fas fa-plus ms-2 text-bg-light text-dark p-1 rounded"></i></button>
-                    </div>
-                </form>
-                @if(session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        <span class="text-center">{{ session('error') }}</span>
-                    </div>
-                @endif
-            </div>
+                        <div class="my-3">
+                            <button type="submit" class="btn btn-sm btn-primary">Salvar <i class="fas fa-plus ms-2 text-bg-light text-dark p-1 rounded"></i></button>
+                        </div>
+                    </form>
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            <span class="text-center">{{ session('error') }}</span>
+                        </div>
+                    @endif
+                </div>
 
-            @if($horarios->count() === 0)
-                <div class="text-center"></div>
-            @else
-                <div class="col-lg-5 text-bg-secondary p-4 rounded">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="d-flex flex-wrap">Horarios:</th>
-                        </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
+                @if($horarios->count() === 0)
+                    <div class="text-center"></div>
+                @else
+                    <div class="col-lg-5 text-bg-secondary p-4 rounded">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="d-flex flex-wrap">Horarios:</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
 
                             @foreach($horarios as $horario)
                                 <tr>
                                     <td class="d-flex justify-content-between lh-sm">
                                         <div class="d-flex flex-wrap col-md-8 align-items-center justify-content-between">
-                                           <div>{{ $horario->times }}</div>
-                                                @if($horario->active === 1)
-                                                    <div class="text-success p-1 rounded"><i class="fa-solid fa-circle-check fs-5 me-2"></i> Disponivel--</div>
-                                                @else
-                                                    <div class="text-danger p-1 rounded"><i class="fa-solid fa-circle-xmark fs-5 me-2"></i> Indisponivel</div>
-                                                @endif
+                                            <div>{{ $horario->times }}</div>
+                                            @if($horario->active === 1)
+                                                <div class="text-success p-1 rounded"><i class="fa-solid fa-circle-check fs-5 me-2"></i> Disponivel--</div>
+                                            @else
+                                                <div class="text-danger p-1 rounded"><i class="fa-solid fa-circle-xmark fs-5 me-2"></i> Indisponivel</div>
+                                            @endif
 
                                         </div>
                                         <div class="col-lg-2 d-flex flex-wrap align-self-center justify-content-end">
@@ -69,10 +70,10 @@
                                 </tr>
                             @endforeach
 
-                        </tbody>
-                    </table>
-                </div>
-            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
 
         </div>
     </div>

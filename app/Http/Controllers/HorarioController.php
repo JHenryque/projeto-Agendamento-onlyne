@@ -6,6 +6,8 @@ use App\Models\Empreendedor;
 use App\Models\Horarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class HorarioController extends Controller
 {
@@ -14,7 +16,6 @@ class HorarioController extends Controller
     public function createHorario()
     {
         $idEmpreendedor = auth()->user()->id;
-
 
         $horarios = Horarios::orderBy('times', 'desc')->latest()->where('empreendedor_id', $idEmpreendedor)->get();
 
