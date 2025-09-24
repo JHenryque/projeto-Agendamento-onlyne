@@ -19,29 +19,21 @@ class ClientController extends Controller
     // home empreendedor
     public function homeEmpreendedor():view
     {
-        $start = Carbon::now()->startOfWeek(); // segunda
-        $end   = Carbon::now()->endOfWeek();   // domingo
-        $period = CarbonPeriod::create($start, $end);
+//        $start = Carbon::now()->startOfWeek(); // segunda
+//        $end   = Carbon::now()->endOfWeek();   // domingo
+//        $period = CarbonPeriod::create($start, $end);
 
         // Buscar todos os agendamentos de hoje
         $hoje = Carbon::today()->toDateString();
         $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
 
-
-
-//        $agendamentosHoje->searchable();
-//
-
-
-//        echo '<pre>';
-//        var_dump($agendamentosHoje->toArray());
-//
-//        exit();
-
+        // id autenticado
         $idEmprendedor = Auth::id();
 
+        // pegar os horarios de um autenticador
         $horarios = Horarios::orderBy('times', 'asc')->latest()->where('empreendedor_id', $idEmprendedor)->get();
 
+        // se existe autenticador
         $horarioIsTrue = Horarios::where('empreendedor_id', $idEmprendedor)->exists();
 
         return view('companies.home', compact('horarios', 'agendamentosHoje', 'horarioIsTrue'));
@@ -49,15 +41,17 @@ class ClientController extends Controller
 
     public function createAtendimento():view
     {
+        // id autenticado
         $idEmpreendedor = auth()->user()->id;
 
-
+        // pegar os tipo atendimento de um autenticador
         $tipoAtendimentos = Atendimento::latest()->where('empreendedor_id',$idEmpreendedor)->get();
 
 
         return view('companies.create-atendimento', compact('tipoAtendimentos'));
     }
 
+    // post creatar tipo atendimento
     public function submitAtendimento(Request $request)
     {
         $request->validate([
@@ -81,13 +75,16 @@ class ClientController extends Controller
         return redirect()->route('empreendedor.create.atendimento');
     }
 
+    // editar tipo atendimento intaface
     public function editAtendimento($id):view
     {
+        // buscar apenes por identificaçao
         $at = Atendimento::findOrFail($id);
 
         return view('companies.edit-atendimento', compact('at'));
     }
 
+    // post editar tipo atendimento
     public function updateAtendimento(Request $request)
     {
         $request->validate([
@@ -110,13 +107,14 @@ class ClientController extends Controller
         return redirect()->route('empreendedor.create.atendimento');
     }
 
+    // deletar tipo atendimento intaface
     public function deletedAtendimento($id)
     {
         $aten = Atendimento::findOrFail($id);
 
         return view('companies.delete-atendimento', compact('aten'));
     }
-
+    // post deletar tipo atendimento
     public function destroyAtendimento($id)
     {
         $atendimento = Atendimento::findOrFail($id);

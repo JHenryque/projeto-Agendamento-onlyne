@@ -16,10 +16,13 @@ use Illuminate\View\View;
 
 class ColaboratorsController extends Controller
 {
+    // inteface
     public function index(): View
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
+        // pegar todos colaborador ate desativado
         $colaborators = User::withTrashed()->with('adresses')->where('role', 'colaborator')->get();
 
 
@@ -28,10 +31,13 @@ class ColaboratorsController extends Controller
 
     public function homeColaborators(): View
     {
+        // permiçao ao entrar
         Auth::user()->can('colaborator') ? : abort(403, 'Você não tem permissão para acessar esta página.');
 
+        // pegar todos empreendedor ate desativado
         $colaborators = User::withTrashed()->with('empreendedor')->where('role', 'empreendedor')->get();
 
+        // buscar o vendedor
         $idCol = User::where('col_id', auth()->id())->first();
 
 
@@ -40,13 +46,16 @@ class ColaboratorsController extends Controller
 
     public function createColaborator(): View
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'You are not allowed to access this page');
 
+        // pegar todos os departamento
         $departments = Departments::all();
 
         return view('colaboration.create-colaborator', compact('departments'));
     }
 
+    // post criar colaborador
     public function colaboratorSubmit(Request $request)
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
@@ -103,19 +112,25 @@ class ColaboratorsController extends Controller
         return redirect()->route('colaboration')->with('success', 'O foi enviado com sucesso. Verifique no Email na caixa de mensagem.');
     }
 
+    // editar colaborador
     public function editColaborator($id):view
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
+        // pegar colaborar por id
         $colaborator = User::with('adresses')->where('role', 'colaborator')->findOrFail($id);
 
+        // todos
         $departments = Departments::all();
 
         return view('colaboration.edit-colaborator', compact('colaborator', 'departments'));
     }
 
+    // atualir colaborador
     public function updateColaborator(Request $request)
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
         $request->validate([
@@ -147,17 +162,22 @@ class ColaboratorsController extends Controller
         return redirect()->route('colaboration')->with('success', 'O foi atualizado com sucesso.');
     }
 
+    // deletar colaborador
     public function deleteColaborator($id): View
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
+        // buscar o primeiro colaborador com id
         $colaborator = User::with('adresses')->where('role', 'colaborator')->findOrFail($id);
 
         return view('colaboration.delete-colaborator', compact('colaborator'));
     }
 
+    // interface deletar colaborador
     public function destroyColaborator($id)
     {
+        // permiçao ao entrar
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
 
         $colaborator = User::findOrFail($id);
@@ -166,6 +186,7 @@ class ColaboratorsController extends Controller
         return redirect()->route('colaboration')->with('success', 'O foi removido com sucesso.');
     }
 
+    // softDelete quando for deletado sera desativado nao deletado do banco
     public function restoreColaborator($id)
     {
         Auth::user()->can('admin') ? : abort(403, 'Você não tem permissão para acessar esta página');
