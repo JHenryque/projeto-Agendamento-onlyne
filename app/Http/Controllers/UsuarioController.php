@@ -7,6 +7,7 @@ use App\Models\Atendimento;
 use App\Models\Empreendedor;
 use App\Models\Horarios;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,6 @@ class UsuarioController extends Controller
     //
     public function agendarUsuario()
     {
-        // Buscar todos os agendamentos de hoje
-//        $hoje = Carbon::today()->toDateString();
-//        $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
-        //-------------------------
-
-
         //Buscar um horário específico de hoje
 //        $hoje = Carbon::today()->toDateString();
 //        $hora = '14:00'; // exemplo de horário buscado
@@ -45,9 +40,6 @@ class UsuarioController extends Controller
 //        } else {
 //            echo "Horário disponível!";
 //        }
-
-       $idEmprendedor = Auth::id();
-
         // vai pegar o horario so que for verdadeiro
         //-----------------------------------------
 //        $horarios = Horarios::all()->reject(function (Horarios $horario) {
@@ -56,14 +48,51 @@ class UsuarioController extends Controller
 //            return $horario->times;
 //        });
 
+
+//        $start = Carbon::now()->startOfWeek(); // segunda
+//        $end   = Carbon::now()->endOfWeek();   // domingo
+//        // pega a segunda-feira desta semana
+//        $start = Carbon::now()->startOfWeek(Carbon::MONDAY);
+//        // pega a próxima segunda-feira (7 dias depois)
+//        $end = $start->copy()->addWeek();
+
+        Carbon::setLocale('pt_BR'); // define o idioma para português
+
+        $idEmprendedor = Auth::id();
+
+        $start = Carbon::today();             // hoje
+        $end   = Carbon::today()->addDays(7); // hoje + 7 dias
+
+        $period = CarbonPeriod::create($start, $end);
+
+        foreach ($period as $date) {
+            $dates[] = $date->format('Y-m-d');
+        }
+
+        // Buscar todos os agendamentos
+        $hoje = Carbon::today()->toDateString();
+
+       $agendamento = Agendamento::where('empreendedor_id', $idEmprendedor)->get();
+
         $tipoAtendimentos = Atendimento::where('empreendedor_id', $idEmprendedor)->get();
 
-        $horarios = Horarios::where('empreendedor_id', $idEmprendedor)->Where('active', 1)->get();
+        $horarios = Horarios::where('empreendedor_id', $idEmprendedor)->where('active', 1)->get();
+
+//            foreach ($horarios as $horario) {
+//                echo '<pre>';
+//                $agendamento = Agendamento::where('empreendedor_id', $idEmprendedor)->whereDate('data', $hoje)
+//                    ->where('id_horario', $horario->times)
+//                    ->get();
+//                var_dump($agendamento);
+//                exit();
+//            }
 
 
         return view('agendar.agendar-usuario', [
             'atendimentos' => $tipoAtendimentos,
+            'periods' => $period,
             'horarios' => $horarios,
+            'isTrues' => $agendamento,
         ]);
     }
 
@@ -73,6 +102,7 @@ class UsuarioController extends Controller
         $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string|regex:/^(\(?\d{2}\)?\s?)?\d{4,5}-\d{4}$/|unique:Agendamentos,phone',
+            'data' => 'required|date',
             'atendimento' => 'required',
             'horario' => 'required',
         ],[
@@ -92,9 +122,9 @@ class UsuarioController extends Controller
         $agendamento->save();
 
 
-        $horario = Horarios::where('times', $request->input('horario'))->first();
-        $horario->active = 0;
-        $horario->save();
+//        $horario = Horarios::where('times', $request->input('horario'))->first();
+//        $horario->active = 0;
+//        $horario->save();
 
         return redirect()->route('home')->with('success', 'Atendimento cadastrado com sucesso!');
 

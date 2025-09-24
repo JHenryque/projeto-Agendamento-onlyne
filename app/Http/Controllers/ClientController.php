@@ -6,6 +6,7 @@ use App\Models\Agendamento;
 use App\Models\Atendimento;
 use App\Models\Empreendedor;
 use App\Models\Horarios;
+use Carbon\CarbonPeriod;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -18,13 +19,18 @@ class ClientController extends Controller
     // home empreendedor
     public function homeEmpreendedor():view
     {
+        $start = Carbon::now()->startOfWeek(); // segunda
+        $end   = Carbon::now()->endOfWeek();   // domingo
+        $period = CarbonPeriod::create($start, $end);
+
         // Buscar todos os agendamentos de hoje
         $hoje = Carbon::today()->toDateString();
         $agendamentosHoje = Agendamento::whereDate('data', $hoje)->get();
 
-        $agendamentosHoje->searchable();
 
-        dd($agendamentosHoje);
+
+//        $agendamentosHoje->searchable();
+//
 
 
 //        echo '<pre>';

@@ -20,7 +20,7 @@
                         <th scope="col">#</th>
                         <th scope="col" class="text-center" style="font-size: 1.3rem;">Atendimento</th>
                         <th scope="col">
-                            <input type="date" name="data" value="{{ old('data', date('Y-m-d')) ?? $agendamentosHoje }}" style="border: 0;outline: 0;font-size: 1.3rem;">
+                            <input type="date" name="data" value="{{ old('data', date('Y-m-d')) }}" style="border: 0;outline: 0;font-size: 1.3rem;">
                         </th>
                     </tr>
                     </thead>
@@ -28,12 +28,13 @@
                     <tbody style="height: 500px">
                     @if($agendamentosHoje->count())
                         @foreach($horarios as $indx => $horario)
-                            @foreach($agendamentosHoje as $agHoje)
-                                    @if($horario->times === $agHoje->id_horario)
+                            @if($horario->active)
+                                @foreach($agendamentosHoje as $agHoje)
+                                    @if($agHoje->id_horario === $horario->times)
                                         <tr>
                                             <th scope="row"><br>{{ $indx + 1 }}</th>
-                                                <td style="height: 2rem;">
-                                                    <div class="d-flex justify-content-between flex-wrap">
+                                            <td style="height: 2rem;">
+                                                <div class="d-flex justify-content-between flex-wrap">
                                                     <div>
                                                         <span><strong>Nome:</strong> {{ $agHoje->name }}</span>
                                                         <p><strong>telefone:</strong> {{ $agHoje->phone }}</p>
@@ -42,28 +43,28 @@
                                                         <span><strong>Tipo Agendamento:</strong> corte de cabelo e barba</span>
                                                         <p><strong>Preço:</strong> R$40,00</p>
                                                     </div>
-                                                    </div>
-                                                </td>
-                                            <td> <br><strong>Horario:</strong> {{ $horario->times }}</td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <th scope="row"><br>{{ $indx + 1 }}</th>
-                                            <td>
-                                                <div class="text-center text-warning-emphasis col-md-12">
-                                                    <br>
-                                                    @if($horario->active)
-                                                        -- <span class="text-success">Disponivel</span> --
-                                                    @else
-                                                        -- <span class="text-danger">Indisponivel</span> --
-                                                    @endif
                                                 </div>
                                             </td>
-                                            <td><br><strong>Horario:</strong> {{ $horario->times }}</td>
+                                            <td> <br><strong>Horario:</strong> {{ $horario->times }}</td>
                                         </tr>
                                     @endif
-                            @endforeach
-
+                                @endforeach
+                            @else
+                                <tr>
+                                    <th scope="row"><br>{{ $indx + 1 }}</th>
+                                    <td>
+                                        <div class="text-center text-warning-emphasis col-md-12">
+                                            <br>
+                                            @if($horario->active)
+                                                -- <span class="text-success">Disponivel</span> --
+                                            @else
+                                                -- <span class="text-danger">Indisponivel</span> --
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td><br><strong>Horario:</strong> {{ $horario->times }}</td>
+                                </tr>
+                            @endif
                         @endforeach
                                 @else
                                     @foreach($horarios as $indx => $horario)

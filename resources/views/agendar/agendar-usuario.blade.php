@@ -4,7 +4,7 @@
        <hr>
 
        <div>
-       @if($horarios)sim @else nao @endif
+
            <div class="container">
                    <h1 class="my-4">Novo Agendamento</h1>
 
@@ -34,16 +34,6 @@
                        </div>
                    </div>
 
-                   <div class="form-floating mb-3">
-                       <input type="date" name="data" class="form-control @error('data') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" value="{{ old('data', date('Y-m-d')) }}" required aria-describedby="validationInput">
-                       <label for="floatingInput">Data: </label>
-                       <div id="validationInput" class="form-text text-danger">
-                           @error('data')
-                           {{ $message }}
-                           @enderror
-                       </div>
-                   </div>
-
                    <div class="mb-3">
                        <label>Tipo de Atendimento:</label>
                        <div class="d-flex flex-wrap mt-2 col-md-12" id="validationInput">
@@ -61,35 +51,56 @@
                                </div>
                            @endforeach
                        </div>
-
-                       <div id="validationInput" class="form-text text-danger">
-                           @error('atendimento')
+                       <div id="atendimento" class="form-text text-danger" id="validationInput">
+                           @error('data')
                            {{ $message }}
                            @enderror
                        </div>
                    </div>
 
+                       <div class="mb-3">
+                           <label class="form-label">Data: </label>
+                           <div class="d-flex flex-wrap mt-2 col-md-12" id="validationInput">
+                               @foreach($periods as $period)
+                                   <div class="card p-2 me-2 mb-2">
+                                       <div class="form-check">
+                                           <input class="form-check-input me-3" type="radio" name="data" id="radioDefault{{ $period->format('d') }}" value="{{ $period->format('d-m-Y') }}">
+                                           <label class="form-check-label d-flex flex-column align-items-center" for="radioDefault{{ $period->format('d') }}">
+                                               <b class="border-bottom">{{ $period->translatedFormat('l') }}</b>
+                                               <b class="border-bottom">Dia: {{ $period->format('d') }}</b>
+                                               <b class="border-bottom">{{ $period->translatedFormat('F') }}</b>
+                                               <b>Ano: {{ $period->format('Y') }}</b>
+                                           </label>
+                                       </div>
+                                   </div>
+                               @endforeach
+                           </div>
+                           <div id="datalistOptions" class="form-text text-danger">
+                               @error('data')
+                               {{ $message }}
+                               @enderror
+                           </div>
+                       </div>
+
                    <div class="mb-3">
                        <label>Horário:</label>
                        <div class="d-flex flex-wrap mt-2">
-                           @if($horarios->count())
-                               @foreach($horarios as $horario)
 
-                                       <div class="card p-2 mb-2 me-2">
-                                               <div>
-                                                   <div class="form-check">
-                                                       <input class="form-check-input" type="radio" name="horario" id="horario{{ $horario->id }}" value="{{ $horario->times }}">
-                                                       <label class="form-check-label" for="horario{{ $horario->id }}">
-                                                           <b>{{ $horario->times }}</b>
-                                                       </label>
-                                                   </div>
+
+                               @foreach($horarios as $horario)
+                                   <div class="card p-2 mb-2 me-2">
+                                           <div>
+                                               <div class="form-check">
+                                                   <input class="form-check-input" type="radio" name="horario" id="horario{{ $horario->id }}" value="{{ $horario->times }}">
+                                                   <label class="form-check-label" for="horario{{ $horario->id }}">
+                                                       <b>{{ $horario->times }}</b>
+                                                   </label>
                                                </div>
-                                       </div>
+                                           </div>
+                                   </div>
 
                                @endforeach
-                           @else
-                               <div class="form-text text-center">Nenhum horário disponível</div>
-                           @endif
+
                        </div>
                        <div id="validationInput" class="form-text text-danger">
                            @error('horario')
